@@ -1,0 +1,6 @@
+*.md
+.git
+vendor
+node_modules
+.idea
+.cache
