@@ -2,6 +2,8 @@
 
 @import "tailwindcss";
 
+@config "./tailwind.config.js";
+
 @theme {
     --font-crimson: 'Crimson Text', serif;
     --font-playfair: 'Playfair Display', serif;
@@ -9,6 +11,8 @@
 
 :root {
     color-scheme: light !important;
+    --red-orange: #C02425;
+    --yellow-orange: #F0CB25;
 }
 
 body {

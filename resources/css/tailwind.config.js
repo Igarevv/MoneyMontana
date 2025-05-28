@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -10,7 +8,10 @@ export default {
     darkMode: 'class',
     theme: {
         extend: {
-
+            colors: {
+                'red-orange': '#C02425',
+                'yellow-orange': '#F0CB25',
+            }
         },
     },
 };

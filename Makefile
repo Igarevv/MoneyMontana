@@ -1,14 +1,14 @@
 .DEFAULT_GOAL := help
 
 build-dev-mode: ## Build and run application in development mode
-	docker compose -f docker-compose.dev.yml build
+	docker compose -f docker-compose.dev.yaml build
 	docker exec php php artisan key:generate
 
 start-dev-mode: ## Start application in development mode
-	docker compose -f docker-compose.dev.yml up -d
+	docker compose -f docker-compose.dev.yaml up -d
 
 down-dev-mode: ## Stop application in development mode
-	docker compose -f docker-compose.dev.yml down -v
+	docker compose -f docker-compose.dev.yaml down -v
 
 full-dev-rebuild: ## Full re-install application
 	docker compose -f docker-compose.dev.yml down -v
