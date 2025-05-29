@@ -1,13 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;700&display=swap');
+@import "primeicons/primeicons.css";
 
-@import "tailwindcss";
-
-@config "./tailwind.config.js";
-
-@theme {
-    --font-crimson: 'Crimson Text', serif;
-    --font-playfair: 'Playfair Display', serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
     color-scheme: light !important;

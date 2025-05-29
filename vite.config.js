@@ -3,7 +3,6 @@ import {defineConfig, loadEnv} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import collectModuleAssetsPaths from './vite-module-loader.js';
 import path from 'path';
-import tailwindcss from '@tailwindcss/vite'
 
 export default async ({ mode }) => {
     process.env = {...process.env, ...loadEnv(mode, process.cwd())};
@@ -22,7 +21,6 @@ export default async ({ mode }) => {
                 refresh: true,
             }),
             vue(),
-            tailwindcss(),
         ],
         resolve: {
             alias: {

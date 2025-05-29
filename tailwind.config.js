@@ -11,7 +11,11 @@ export default {
             colors: {
                 'red-orange': '#C02425',
                 'yellow-orange': '#F0CB25',
-            }
+            },
+            fontFamily: {
+                crimson: ['"Crimson Text"', 'serif'],
+                playfair: ['"Playfair Display"', 'serif'],
+            },
         },
     },
 };
