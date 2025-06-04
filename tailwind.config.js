@@ -11,6 +11,10 @@ export default {
             colors: {
                 'red-orange': '#C02425',
                 'yellow-orange': '#F0CB25',
+                'primary-yellow': '#FFCB74',
+                'primary-dark': '#111111',
+                'secondary-dark': '#2F2F2F',
+                'primary-white': '#F6F6F6'
             },
             fontFamily: {
                 crimson: ['"Crimson Text"', 'serif'],

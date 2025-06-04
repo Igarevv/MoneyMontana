@@ -13,5 +13,3 @@ RUN npm install
 FROM base
 
 COPY --from=build /app/node_modules /app/node_modules
-
-CMD [ "npm", "run", "dev" ]

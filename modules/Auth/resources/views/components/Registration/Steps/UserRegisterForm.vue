@@ -48,7 +48,7 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
 </script>
 
 <template>
-  <div class="w-full max-w-md p-8 space-y-6">
+  <div class="w-full max-w-md p-8 space-y-6 dark:bg-primary-dark">
     <h2 class="text-2xl font-bold text-black dark:text-white text-center">{{ $t('registration.register.title') }}</h2>
 
     <div class="flex space-x-4">

@@ -10,18 +10,12 @@ export enum SupportedLocales {
     UK = 'uk'
 }
 
-export function setupI18n() {
-    const locale = Cookies.get('locale') ?? 'en';
-
+export function setupI18n(locale = 'en') {
     return createI18n({
         legacy: false,
-        locale: locale,
+        locale,
         fallbackLocale: 'en',
         globalInjection: true,
-        messages: {
-            en,
-            ru,
-            uk
-        }
-    });
+        messages: { en, ru, uk },
+    })
 }

@@ -1,0 +1,137 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: .docker/production/php/php.Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: montana-php
+    image: montana/php:latest
+    ports:
+      - "9001:9000"
+    volumes:
+      - ./:/app
+      - .docker/production/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      money-montana:
+    depends_on:
+      - postgres
+      - mongo
+      - redis
+
+  postgres:
+    container_name: montana-postgres
+    image: postgres:17.4-alpine
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - .docker/production/database/postgres.sql:/docker-entrypoint-initdb.d/postgres.sql
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - money-montana
+
+  mongo:
+    image: mongo
+    container_name: montana-mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - money-montana
+
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/production/nginx/nginx.Dockerfile
+    container_name: montana-nginx
+    ports:
+      - "8010:8010"
+    volumes:
+      - ./:/app
+      - ./docker/production/nginx/money-montana-dev.conf:/etc/nginx/conf.d/money-montana-dev.conf
+    depends_on:
+      - php
+      - frontend
+    networks:
+      - money-montana
+
+  frontend:
+    build:
+      context: .
+      dockerfile: .docker/production/frontend/frontend.Dockerfile
+    container_name: montana-frontend
+    ports:
+      - "13714:13714"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    networks:
+      - money-montana
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: .docker/production/php/scheduler.Dockerfile
+    container_name: montana-scheduler
+    networks:
+      - money-montana
+    depends_on:
+      - php
+
+  queue:
+    build:
+      context: .
+      dockerfile: .docker/production/php/queue.Dockerfile
+    container_name: montana-queue
+    networks:
+      - money-montana
+    restart: always
+    depends_on:
+      - php
+      - redis
+
+  redis:
+    container_name: montana-redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6380:6379"
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command: sh -c "redis-server --requirepass ${REDIS_PASSWORD}"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      retries: 10
+    networks:
+      - money-montana
+
+networks:
+  money-montana:
+    driver: bridge
+
+volumes:
+  postgres:
+  mongo_data:

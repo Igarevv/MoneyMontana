@@ -18,6 +18,7 @@ export default async ({ mode }) => {
         plugins: [
             laravel({
                 input: allPaths,
+                ssr: 'resources/js/ssr.js',
                 refresh: true,
             }),
             vue(),
@@ -28,12 +29,12 @@ export default async ({ mode }) => {
                 '@Modules': path.resolve(__dirname, 'modules'),
             },
         },
-        server: {
+        /*server: {
             port: 3002,
             host: true,
             hmr: {
                 host: 'localhost',
             },
-        },
+        },*/
     });
 };

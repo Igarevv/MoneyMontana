@@ -5,6 +5,7 @@ import {ToggleSwitch} from "primevue";
 import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
 import {useLocaleChange} from "@/composables/useLocaleChange";
 import {useI18n} from "vue-i18n";
+import DefaultToggleDark from "@/Shared/DarkMode/DefaultToggleDark.vue";
 
 export interface Country {
   countryCode: string;
@@ -56,7 +57,7 @@ async function searchCountry(event: { query: string }) {
 </script>
 
 <template>
-  <div class="w-full max-w-md p-8 space-y-6">
+  <div class="w-full max-w-md p-8 space-y-6 dark:bg-primary-dark">
     <h2 class="text-2xl font-bold text-black dark:text-white text-center">
       {{ t('registration.setup_preferences.title') }}
     </h2>
@@ -118,11 +119,7 @@ async function searchCountry(event: { query: string }) {
 
       <div class="flex flex-row gap-3">
         <span>{{ t('registration.setup_preferences.theme_mode') }}</span>
-        <ToggleSwitch>
-          <template #handle="{ checked }">
-            <i :class="['!text-xs pi', { 'pi-sun': checked, 'pi-moon': !checked }]" />
-          </template>
-        </ToggleSwitch>
+        <default-toggle-dark/>
       </div>
     </div>
   </div>

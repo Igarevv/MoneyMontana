@@ -1,9 +1,10 @@
-import { createApp, h } from 'vue'
+import {createApp, createSSRApp, h} from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
 import {setupI18n} from "@/i18n.config.js";
+import {toggleThemeOnLoad} from "@/Load/darkMode.js";
 
 createInertiaApp({
     resolve: name => {
@@ -11,24 +12,24 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`]
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        toggleThemeOnLoad();
+
+        createSSRApp({ render: () => h(App, props) })
             .use(plugin)
             .use(PrimeVue, {
                 theme: {
                     preset: definePreset(Aura, {
                         semantic: {
                             primary: {
-                                50: '#e8f5e9',
-                                100: '#c8e6c9',
-                                200: '#a5d6a7',
-                                300: '#81c784',
-                                400: '#66bb6a',
-                                500: '#4caf50',
-                                600: '#43a047',
-                                700: '#388e3c',
-                                800: '#2e7d32',
-                                900: '#1b5e20',
-                                950: '#0d4715'
+                                100: '#FFF3E1',
+                                200: '#FFE1B8',
+                                300: '#FFD190',
+                                400: '#FFC178',
+                                500: '#FFCB74',
+                                600: '#F0B260',
+                                700: '#D99949',
+                                800: '#B77C35',
+                                900: '#8F5B23'
                             },
                             error: {
                                 50: '#ffebee',
@@ -43,6 +44,20 @@ createInertiaApp({
                                 900: '#b71c1c',
                                 950: '#7f1212'
                             },
+                            surface: {
+                                0: '#ffffff',
+                                50: '#F6F6F6',
+                                100: '#F6F6F6',
+                                200: '#F6F6F6',
+                                300: '#F6F6F6',
+                                400: '#2F2F2F',
+                                500: '#2F2F2F',
+                                600: '#111111',
+                                700: '#111111',
+                                800: '#111111',
+                                900: '#111111',
+                                950: '#111111'
+                            },
                             info: {
                                 500: '#0288d1'
                             },
@@ -52,38 +67,38 @@ createInertiaApp({
                             colorScheme: {
                                 light: {
                                     ...Aura.semantic.colorScheme.light,
-                                    primary: {
-                                        color: '#4caf50',
-                                        contrastColor: '#ffffff',
-                                        hoverColor: '#43a047',
-                                        activeColor: '#388e3c'
-                                    },
                                     error: {
                                         color: '#f44336',
                                         contrastColor: '#ffffff',
                                         hoverColor: '#e53935',
                                         activeColor: '#d32f2f'
                                     },
+                                    primary: {
+                                        color: '#FFCB74',
+                                        contrastColor: '#111111',
+                                        hoverColor: '#e6b060',
+                                        activeColor: '#cc9c52'
+                                    },
                                     surface: {
                                         0: '#ffffff',
-                                        50: '#f9fafb',
-                                        100: '#f3f4f6',
-                                        200: '#e5e7eb',
-                                        300: '#d1d5db',
-                                        400: '#9ca3af',
-                                        500: '#6b7280',
-                                        600: '#4b5563',
-                                        700: '#374151',
-                                        800: '#1f2937',
-                                        900: '#111827',
-                                        950: '#030712'
+                                        50: '#F6F6F6',
+                                        100: '#F6F6F6',
+                                        200: '#F6F6F6',
+                                        300: '#F6F6F6',
+                                        400: '#2F2F2F',
+                                        500: '#2F2F2F',
+                                        600: '#111111',
+                                        700: '#111111',
+                                        800: '#111111',
+                                        900: '#111111',
+                                        950: '#111111'
                                     }
                                 }
                             }
                         }
                     }),
                     options: {
-                        darkModeSelector: 'none',
+                        darkModeSelector: '.dark',
                     },
 
                 }
@@ -91,4 +106,4 @@ createInertiaApp({
             .use(setupI18n())
             .mount(el)
     },
-})
+});
