@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
 RUN npm run build
 
 FROM php:8.4-fpm-alpine
@@ -14,7 +15,7 @@ WORKDIR /app
 
 COPY --from=node-builder /app /app
 
-RUN apk update && apk add --no-cache \
-    nodejs
+RUN apk update && apk add --no-cache nodejs npm
 
 CMD ["php", "artisan", "inertia:start-ssr"]
+

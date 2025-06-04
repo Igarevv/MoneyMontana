@@ -4,7 +4,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: .docker/production/php/php.Dockerfile
+      dockerfile: ./.docker/production/php/php.Dockerfile
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
@@ -14,7 +14,9 @@ services:
       - "9001:9000"
     volumes:
       - ./:/app
-      - .docker/production/php/php.ini:/usr/local/etc/php/php.ini
+      - ssr_assets:/app/bootstrap/ssr
+      - vite_assets:/app/public/build
+      - ./.docker/production/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       money-montana:
     depends_on:
@@ -34,7 +36,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres:/var/lib/postgresql/data
-      - .docker/production/database/postgres.sql:/docker-entrypoint-initdb.d/postgres.sql
+      - ./.docker/production/database/postgres.sql:/docker-entrypoint-initdb.d/postgres.sql
     env_file:
       - .env
     healthcheck:
@@ -64,13 +66,14 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: .docker/production/nginx/nginx.Dockerfile
+      dockerfile: ./.docker/production/nginx/nginx.Dockerfile
     container_name: montana-nginx
     ports:
       - "8010:8010"
     volumes:
       - ./:/app
-      - ./docker/production/nginx/money-montana-dev.conf:/etc/nginx/conf.d/money-montana-dev.conf
+      - vite_assets:/app/public/build
+      - ./.docker/production/nginx/money-montana-prod.conf:/etc/nginx/conf.d/money-montana-prod.conf
     depends_on:
       - php
       - frontend
@@ -80,20 +83,21 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: .docker/production/frontend/frontend.Dockerfile
+      dockerfile: ./.docker/production/frontend/frontend.Dockerfile
     container_name: montana-frontend
     ports:
       - "13714:13714"
     volumes:
       - ./:/app
-      - /app/node_modules
+      - ssr_assets:/app/bootstrap/ssr
+      - vite_assets:/app/public/build
     networks:
       - money-montana
 
   scheduler:
     build:
       context: .
-      dockerfile: .docker/production/php/scheduler.Dockerfile
+      dockerfile: ./.docker/production/php/scheduler.Dockerfile
     container_name: montana-scheduler
     networks:
       - money-montana
@@ -103,7 +107,7 @@ services:
   queue:
     build:
       context: .
-      dockerfile: .docker/production/php/queue.Dockerfile
+      dockerfile: ./.docker/production/php/queue.Dockerfile
     container_name: montana-queue
     networks:
       - money-montana
@@ -135,3 +139,5 @@ networks:
 volumes:
   postgres:
   mongo_data:
+  ssr_assets:
+  vite_assets:

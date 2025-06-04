@@ -1,21 +1,24 @@
-import {createApp, createSSRApp, h} from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp } from '@inertiajs/vue3';
+import { createSSRApp, h } from 'vue';
+import { setupI18n } from './i18n.config.ts';
 import PrimeVue from 'primevue/config';
+import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
-import {definePreset} from "@primeuix/themes";
-import {setupI18n} from "@/i18n.config.js";
-import {toggleThemeOnLoad} from "@/Load/darkMode.js";
 
 createInertiaApp({
-    resolve: name => {
-        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-        return pages[`./Pages/${name}.vue`]
+    resolve: (name) => {
+        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
+        return pages[`./Pages/${name}.vue`];
     },
     setup({ el, App, props, plugin }) {
-        toggleThemeOnLoad();
+        const i18n = setupI18n(props.locale || 'en');
 
-        createSSRApp({ render: () => h(App, props) })
-            .use(plugin)
+        const app = createSSRApp({
+            render: () => h(App, props),
+        });
+
+        app.use(plugin)
+            .use(i18n)
             .use(PrimeVue, {
                 theme: {
                     preset: definePreset(Aura, {
@@ -58,12 +61,8 @@ createInertiaApp({
                                 900: '#111111',
                                 950: '#111111'
                             },
-                            info: {
-                                500: '#0288d1'
-                            },
-                            warning: {
-                                500: '#f9a825'
-                            },
+                            info: { 500: '#0288d1' },
+                            warning: { 500: '#f9a825' },
                             colorScheme: {
                                 light: {
                                     ...Aura.semantic.colorScheme.light,
@@ -100,10 +99,9 @@ createInertiaApp({
                     options: {
                         darkModeSelector: '.dark',
                     },
-
                 }
-            })
-            .use(setupI18n())
-            .mount(el)
+            });
+
+        app.mount(el);
     },
 });

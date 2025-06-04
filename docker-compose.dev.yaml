@@ -70,7 +70,7 @@ services:
       - "8010:8010"
     volumes:
       - ./:/app
-      - ./docker/development/nginx/money-montana-dev.conf:/etc/nginx/conf.d/money-montana-dev.conf
+      - ./.docker/development/nginx/money-montana-dev.conf:/etc/nginx/conf.d/money-montana-dev.conf
     depends_on:
       - php
     networks:

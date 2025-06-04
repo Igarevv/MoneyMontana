@@ -15,11 +15,13 @@ export default async ({ mode }) => {
     const allPaths = await collectModuleAssetsPaths(paths, 'modules');
 
     return defineConfig({
+        base: process.env.APP_ENV === 'production' ? '/build/' : undefined,
         plugins: [
             laravel({
                 input: allPaths,
                 ssr: 'resources/js/ssr.js',
                 refresh: true,
+                publicPath: "/public/",
             }),
             vue(),
         ],
@@ -29,12 +31,20 @@ export default async ({ mode }) => {
                 '@Modules': path.resolve(__dirname, 'modules'),
             },
         },
-        /*server: {
+        build: {
+            outDir: 'public/build',
+            assetsDir: 'assets',
+            manifest: true,
+            rollupOptions: {
+                input: '/resources/js/app.js'
+            }
+        },
+        server: {
             port: 3002,
             host: true,
             hmr: {
                 host: 'localhost',
             },
-        },*/
+        },
     });
 };

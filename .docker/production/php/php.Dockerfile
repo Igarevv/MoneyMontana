@@ -87,7 +87,7 @@ RUN addgroup --system --gid ${GID} laravel \
     && chown -R ${UID}:${GID} /app/ \
     && chmod -R 755 /app/storage/ \
     && chmod -R 755 /app/bootstrap/cache/
-COPY .docker/development/php/php.ini /usr/local/etc/php/php.ini
+COPY .docker/production/php/php.ini /usr/local/etc/php/php.ini
 USER laravel
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
