@@ -49,34 +49,37 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
 
 <template>
   <div class="w-full max-w-md p-8 space-y-6">
-    <h2 class="text-2xl font-bold text-black dark:text-white text-center">Your Best Tracker Starts Here</h2>
+    <h2 class="text-2xl font-bold text-black dark:text-white text-center">{{ $t('registration.register.title') }}</h2>
+
     <div class="flex space-x-4">
       <button
           class="flex items-center gap-2 w-full justify-center px-4 py-2 border cursor-pointer border-gray-600 dark:border-gray-400 rounded-lg text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition"
       >
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
-        Sign up with Google
+        {{ $t('registration.register.signup_google') }}
       </button>
       <button
           class="flex items-center gap-2 w-full justify-center px-4 py-2 border cursor-pointer border-gray-600 dark:border-gray-400 rounded-lg text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition"
       >
         <img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" class="w-5 h-5" />
-        Sign up with GitHub
+        {{ $t('registration.register.signup_github') }}
       </button>
     </div>
+
     <div class="flex items-center justify-between text-black dark:text-white">
       <hr class="w-full border-gray-300 dark:border-gray-600" />
-      <span class="px-3 text-sm">or</span>
+      <span class="px-3 text-sm">{{ $t('registration.register.or') }}</span>
       <hr class="w-full border-gray-300 dark:border-gray-600" />
     </div>
+
     <Form class="space-y-4" v-slot="$form" :initialValues :resolver="resolver" @submit="onFormSubmit">
       <div class="flex flex-col gap-1">
-        <label class="text-base text-black dark:text-white">What should we call you?</label>
+        <label class="text-base text-black dark:text-white">{{ $t('registration.register.labels.username') }}</label>
         <div class="rounded-xl">
           <InputText
               name="username"
               type="text"
-              placeholder="Username"
+              :placeholder="$t('registration.register.placeholders.username')"
               fluid
           />
         </div>
@@ -84,7 +87,7 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-base text-black dark:text-white">Your email</label>
+        <label class="text-base text-black dark:text-white">{{ $t('registration.register.labels.email') }}</label>
         <div class="rounded-xl">
           <InputText
               name="email"
@@ -97,12 +100,12 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-base text-black dark:text-white">Your password</label>
+        <label class="text-base text-black dark:text-white">{{ $t('registration.register.labels.password') }}</label>
         <div class="rounded-xl">
           <InputText
               name="password"
               type="password"
-              placeholder="**********"
+              placeholder="*********"
               fluid
           />
         </div>
@@ -110,12 +113,12 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-base text-black dark:text-white">Repeat your password</label>
+        <label class="text-base text-black dark:text-white">{{ $t('registration.register.labels.password_confirm') }}</label>
         <div class="rounded-xl">
           <InputText
               name="password_confirm"
               type="password"
-              placeholder="**********"
+              placeholder="*********"
               fluid
           />
         </div>
@@ -126,9 +129,9 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
         <label class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
           <input type="checkbox" class="form-checkbox rounded text-blue-500" />
           <span>
-            By signing up, you agree to Money Montana's
-            <a href="#" class="text-blue-500 underline">Terms of Use</a> and
-            <a href="#" class="text-blue-500 underline">Privacy Policy</a>.
+            {{ $t('registration.register.checkbox.agree_text') }}
+            <a href="#" class="text-blue-500 underline">{{ $t('registration.register.checkbox.terms_of_use') }}</a> и
+            <a href="#" class="text-blue-500 underline">{{ $t('registration.register.checkbox.privacy_policy') }}</a>.
           </span>
         </label>
       </div>
@@ -137,17 +140,13 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
           type="submit"
           class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium"
       >
-        Next Step
+        {{ $t('registration.register.buttons.next_step') }}
       </button>
     </Form>
 
     <p class="text-sm text-gray-500 dark:text-gray-300 text-center">
-      Already have an account?
-      <a href="#" class="text-blue-500 underline">Login here</a>
+      {{ $t('registration.register.already_have_account') }}
+      <a href="#" class="text-blue-500 underline">{{ $t('registration.register.buttons.login_here') }}</a>
     </p>
   </div>
 </template>
-
-<style scoped>
-
-</style>

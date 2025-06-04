@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted, nextTick} from 'vue';
 import AppLogoLight from "@/Shared/AppLogoLight.vue";
+import {useI18n} from "vue-i18n";
 
 const icons = [
   'pi-wallet',
@@ -9,6 +10,8 @@ const icons = [
   'pi-pound',
   'pi-dollar'
 ];
+
+const { t } = useI18n();
 
 interface FallingIcon {
   id: number;
@@ -95,19 +98,18 @@ onMounted(async () => {
     <main class="flex flex-1 items-center justify-center px-4 sm:px-10 z-10 relative text-center">
       <div class="flex flex-col items-center space-y-6 max-w-3xl">
         <h1 class="text-3xl sm:text-5xl font-extrabold leading-snug sm:leading-tight">
-          Take control of your finances like a pro.
+          {{ t('registration.promo.heading') }}
         </h1>
 
         <p class="text-sm sm:text-base text-gray-100 max-w-lg sm:max-w-2xl">
-          Join hundreds of users who track spending, plan budgets, and achieve financial goals — all in one smart
-          system. Your personal hub for managing money with clarity and confidence.
+          {{ t('registration.promo.description') }}
         </p>
       </div>
     </main>
 
     <footer class="py-6 text-sm sm:text-base">
       <div class="flex justify-center items-center text-center px-4">
-        <span class="text-xl">©</span>&nbsp;{{ new Date().getFullYear() }} Money Montana - All rights reserved.
+        <span class="text-xl">©</span>&nbsp;{{ new Date().getFullYear() }} {{ t('registration.promo.footer') }}
       </div>
     </footer>
   </div>

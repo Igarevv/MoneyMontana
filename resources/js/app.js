@@ -3,6 +3,7 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
+import {setupI18n} from "@/i18n.config.js";
 
 createInertiaApp({
     resolve: name => {
@@ -87,6 +88,7 @@ createInertiaApp({
 
                 }
             })
+            .use(setupI18n())
             .mount(el)
     },
 })

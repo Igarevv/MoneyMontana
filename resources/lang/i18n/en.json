@@ -1,0 +1,47 @@
+{
+  "registration": {
+    "setup_preferences": {
+      "title": "Let us setup your preferences",
+      "country_label": "Your country",
+      "country_placeholder": "Ukraine...",
+      "language_label": "Your preferred language",
+      "currency_label": "Your preferred currency",
+      "currency_placeholder": "USD",
+      "currency_country_prefix": "Country:",
+      "theme_mode": "Theme Mode"
+    },
+    "register": {
+      "title": "Your Best Tracker Starts Here",
+      "signup_google": "Sign up with Google",
+      "signup_github": "Sign up with GitHub",
+      "or": "or",
+      "labels": {
+        "username": "What should we call you?",
+        "email": "Your email",
+        "password": "Your password",
+        "password_confirm": "Repeat your password",
+        "terms": "By signing up, you agree to Money Montana's",
+        "terms_link": "Terms of Use",
+        "privacy_link": "Privacy Policy"
+      },
+      "placeholders": {
+        "username": "Username"
+      },
+      "checkbox": {
+        "agree_text": "By signing up, you agree to Money Montana's",
+        "terms_of_use": "Terms of Use",
+        "privacy_policy": "Privacy Policy"
+      },
+      "buttons": {
+        "next_step": "Next Step",
+        "login_here": "Login here"
+      },
+      "already_have_account": "Already have an account?"
+    },
+    "promo": {
+      "heading": "Take control of your finances like a pro.",
+      "description": "Join hundreds of users who track spending, plan budgets, and achieve financial goals — all in one smart system. Your personal hub for managing money with clarity and confidence.",
+      "footer": "Money Montana - All rights reserved."
+    }
+  }
+}

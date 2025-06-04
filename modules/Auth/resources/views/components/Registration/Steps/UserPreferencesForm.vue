@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import AutoComplete from 'primevue/autocomplete';
-import {Select} from "primevue";
-import availableLanguages from "@/utils/availableLanguages";
 import {ToggleSwitch} from "primevue";
+import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
+import {useLocaleChange} from "@/composables/useLocaleChange";
+import {useI18n} from "vue-i18n";
 
 export interface Country {
   countryCode: string;
@@ -15,14 +16,11 @@ export interface Country {
   label: string;
 }
 
-export interface Language {
-  languageCode: string;
-  languageName: string;
-}
+const { t } = useI18n();
 
 const selectedCountry = ref<Country | null>(null);
 
-const selectedLanguage = ref<Language | null>(availableLanguages[0]);
+const { currentLocale } = useLocaleChange();
 
 const selectedCurrency = ref<string | null>(null);
 
@@ -59,46 +57,49 @@ async function searchCountry(event: { query: string }) {
 
 <template>
   <div class="w-full max-w-md p-8 space-y-6">
-    <h2 class="text-2xl font-bold text-black dark:text-white text-center">Let us setup your preferences</h2>
+    <h2 class="text-2xl font-bold text-black dark:text-white text-center">
+      {{ t('registration.setup_preferences.title') }}
+    </h2>
     <div class="space-y-6 flex items-center flex-col">
       <div class="flex flex-col w-full">
-        <label class="text-base text-black dark:text-white">Your country</label>
+        <label class="text-base text-black dark:text-white">
+          {{ t('registration.setup_preferences.country_label') }}
+        </label>
         <div class="flex flex-row items-center gap-3 w-full">
           <AutoComplete
               v-model="selectedCountry"
               :suggestions="filteredCountries"
               @complete="searchCountry"
               optionLabel="countryName"
-              placeholder="Ukraine..."
+              :placeholder="t('registration.setup_preferences.country_placeholder')"
               dropdown
               class="w-full"
           />
           <i class="pi pi-check" :class="selectedCountry !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
       </div>
+
       <div class="flex flex-col w-full">
-        <label class="text-base text-black dark:text-white">Your preferred language</label>
+        <label class="text-base text-black dark:text-white">
+          {{ t('registration.setup_preferences.language_label') }}
+        </label>
         <div class="flex flex-row items-center gap-3">
-          <Select
-              v-model="selectedLanguage"
-              :options="availableLanguages"
-              optionLabel="languageName"
-              checkmark
-              :highlightOnSelect="false"
-              class="w-full"
-          />
-          <i class="pi pi-check" :class="selectedLanguage !== null ? 'text-green-500' : 'text-gray-800'"></i>
+          <default-select-localization />
+          <i class="pi pi-check" :class="currentLocale !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
       </div>
+
       <div class="flex flex-col w-full">
-        <label class="text-base text-black dark:text-white">Your preferred currency</label>
+        <label class="text-base text-black dark:text-white">
+          {{ t('registration.setup_preferences.currency_label') }}
+        </label>
         <div class="flex flex-row items-center gap-3 w-full">
           <AutoComplete
               v-model="selectedCurrency"
               :suggestions="filteredCountries"
               @complete="searchCountry"
               optionLabel="currencyCode"
-              placeholder="USD"
+              :placeholder="t('registration.setup_preferences.currency_placeholder')"
               class="w-full"
               dropdown
           >
@@ -106,16 +107,17 @@ async function searchCountry(event: { query: string }) {
               <div class="flex flex-col">
                 <span class="font-semibold">{{ slotProps.option.currencyCode }}</span>
                 <small class="text-gray-500">
-                  Country: {{ slotProps.option.countryName }}
+                  {{ t('registration.setup_preferences.currency_country_prefix') }} {{ slotProps.option.countryName }}
                 </small>
               </div>
             </template>
           </AutoComplete>
-          <i class="pi pi-check" :class="selectedLanguage !== null ? 'text-green-500' : 'text-gray-800'"></i>
+          <i class="pi pi-check" :class="selectedCountry !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
       </div>
+
       <div class="flex flex-row gap-3">
-        <span>Theme Mode</span>
+        <span>{{ t('registration.setup_preferences.theme_mode') }}</span>
         <ToggleSwitch>
           <template #handle="{ checked }">
             <i :class="['!text-xs pi', { 'pi-sun': checked, 'pi-moon': !checked }]" />

@@ -1,9 +1,10 @@
-import {Language} from "@Modules/Auth/resources/views/components/Registration/Steps/UserPreferencesForm.vue";
+import {Language} from "@/Shared/Localization/DefaultSelectLocalization.vue";
+import {SupportedLocales} from "@/i18n.config";
 
 const languages: Language[] = [
-    { languageCode: 'en', languageName: 'English' },
-    { languageCode: 'ru', languageName: 'Русский' },
-    { languageCode: 'ua', languageName: 'Українська' },
+    { languageCode: SupportedLocales.EN, languageName: 'English' },
+    { languageCode: SupportedLocales.RU, languageName: 'Русский' },
+    { languageCode: SupportedLocales.UK, languageName: 'Українська' },
 ];
 
 export default languages;

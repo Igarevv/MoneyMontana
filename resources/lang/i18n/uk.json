@@ -1,0 +1,47 @@
+{
+  "registration": {
+    "setup_preferences": {
+      "title": "Налаштуймо ваші вподобання",
+      "country_label": "Ваша країна",
+      "country_placeholder": "Україна...",
+      "language_label": "Бажана мова",
+      "currency_label": "Бажана валюта",
+      "currency_placeholder": "USD",
+      "currency_country_prefix": "Країна:",
+      "theme_mode": "Темний режим"
+    },
+    "register": {
+      "title": "Ваш найкращий трекер починається тут",
+      "signup_google": "Зареєструватися через Google",
+      "signup_github": "Зареєструватися через GitHub",
+      "or": "або",
+      "labels": {
+        "username": "Як вас назвати?",
+        "email": "Ваш email",
+        "password": "Ваш пароль",
+        "password_confirm": "Повторіть пароль",
+        "terms": "Реєструючись, ви погоджуєтесь з умовами",
+        "terms_link": "Користувацької угоди",
+        "privacy_link": "Політики конфіденційності"
+      },
+      "placeholders": {
+        "username": "Ім'я користувача"
+      },
+      "checkbox": {
+        "agree_text": "Реєструючись, ви погоджуєтесь з умовами",
+        "terms_of_use": "Користувацької угоди",
+        "privacy_policy": "Політики конфіденційності"
+      },
+      "buttons": {
+        "next_step": "Наступний крок",
+        "login_here": "Увійти"
+      },
+      "already_have_account": "Вже маєте акаунт?"
+    },
+    "promo": {
+      "heading": "Візьміть під контроль свої фінанси, як професіонал.",
+      "description": "Приєднуйтесь до сотень користувачів, які відстежують витрати, планують бюджети та досягають фінансових цілей — усе в одній розумній системі. Ваш особистий центр управління грошима з чіткістю та впевненістю.",
+      "footer": "Money Montana — Всі права захищені."
+    }
+  }
+}
