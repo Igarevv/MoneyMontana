@@ -24,6 +24,9 @@
         "terms_link": "Terms of Use",
         "privacy_link": "Privacy Policy"
       },
+      "errors": {
+        "email_busy": "This email is already in use."
+      },
       "placeholders": {
         "username": "Username"
       },

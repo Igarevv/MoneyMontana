@@ -1,9 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;700&display=swap');
 @import "primeicons/primeicons.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* fira-sans-regular - cyrillic_latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/fira-sans-v17-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* fira-sans-600 - cyrillic_latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/fira-sans-v17-cyrillic_latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* fira-sans-700 - cyrillic_latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/fira-sans-v17-cyrillic_latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
 :root {
     --red-orange: #C02425;
@@ -15,5 +41,6 @@
 }
 
 body {
-    @apply font-crimson dark:bg-primary-dark;
+    font-family: 'Fira Sans', sans-serif;
+    @apply dark:bg-primary-dark;
 }

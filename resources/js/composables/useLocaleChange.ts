@@ -28,15 +28,13 @@ export function useLocaleChange() {
             currentLocale.value = newLocale as SupportedLocales;
 
             i18nLocale.value = newLocale;
-
-            window.location.reload();
         } else {
             console.warn(`Locale ${newLocale} is not supported.`);
         }
     };
 
     return {
-        currentLocale: computed(() => currentLocale.value),
+        currentLocale: currentLocale.value,
         changeLocale
     };
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed, ref, watch} from 'vue';
 import AutoComplete from 'primevue/autocomplete';
-import {ToggleSwitch} from "primevue";
 import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
 import {useLocaleChange} from "@/composables/useLocaleChange";
 import {useI18n} from "vue-i18n";
@@ -19,11 +18,21 @@ export interface Country {
 
 const { t } = useI18n();
 
+const props = defineProps<{
+  modelValueCountry: string | null; // раньше было: Country | null
+  modelValueCurrency: string | null;
+}>();
+
+const emit = defineEmits<{
+  (e: 'update:modelValueCountry', value: string | null): void;
+  (e: 'update:modelValueCurrency', value: string | null): void;
+}>();
+
+const selectedCurrency = ref<Country | null>(null);
+
 const selectedCountry = ref<Country | null>(null);
 
 const { currentLocale } = useLocaleChange();
-
-const selectedCurrency = ref<string | null>(null);
 
 const filteredCountries = ref<Country[]>([]);
 
@@ -54,6 +63,35 @@ async function searchCountry(event: { query: string }) {
           c.capital.toLowerCase().includes(query)
       );
 }
+
+watch(
+    () => props.modelValueCurrency,
+    (code) => {
+      if (!code) return selectedCurrency.value = null;
+
+      const match = allCountries.find(c => c.currencyCode === code);
+      if (match) selectedCurrency.value = match;
+    },
+    { immediate: true }
+);
+
+watch(
+    () => selectedCountry.value,
+    (val) => {
+      emit('update:modelValueCountry', val?.countryCode ?? null);
+      emit('update:modelValueCurrency', val?.currencyCode ?? null);
+      if (val) {
+        selectedCurrency.value = val;
+      }
+    }
+);
+
+watch(
+    () => selectedCurrency.value,
+    (val) => {
+      emit('update:modelValueCurrency', val?.currencyCode ?? null);
+    }
+)
 </script>
 
 <template>
@@ -126,5 +164,7 @@ async function searchCountry(event: { query: string }) {
 </template>
 
 <style scoped>
-
+:deep(.p-autocomplete-input::placeholder) {
+  @apply text-gray-400
+}
 </style>

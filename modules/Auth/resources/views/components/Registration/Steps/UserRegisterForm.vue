@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Form } from '@primevue/forms';
-import { reactive } from 'vue';
+import {reactive, ref} from 'vue';
 import { yupResolver } from '@primevue/forms/resolvers/yup';
 import * as yup from 'yup';
 import { InputText, Message } from 'primevue';
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps<{
   nextStep: Function;
@@ -27,6 +28,8 @@ const initialValues = reactive<IUserRegister>({
   password_confirm: ''
 });
 
+const showPreflightError = ref(false);
+
 const resolver = yupResolver(
     yup.object({
       username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters long'),
@@ -39,11 +42,35 @@ const resolver = yupResolver(
     })
 );
 
-const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister }) => {
-  props.nextStep(2);
-  if (valid) {
+const onFormSubmit = async ({ valid, values }: { valid: boolean, values: IUserRegister }) => {
+  showPreflightError.value = false;
+
+  if (!valid) return;
+
+  try {
+    await checkEmail(values.email);
+
     emit('user-created', values);
+
+    props.nextStep(2);
+  } catch (errors) {
+    if (errors?.email) {
+      showPreflightError.value = true;
+    }
   }
+};
+
+const checkEmail = async (email: string) => {
+  return new Promise<void>((resolve, reject) => {
+    router.post('/register/preflight', { email }, {
+      preserveScroll: true,
+      preserveState: true,
+      only: [],
+      replace: false,
+      onSuccess: () => resolve(),
+      onError: (errors) => reject(errors),
+    })
+  });
 };
 </script>
 
@@ -97,6 +124,7 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
           />
         </div>
         <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error.message }}</Message>
+        <Message v-if="showPreflightError" severity="error" size="small" variant="simple">{{ $t('registration.register.errors.email_busy') }}</Message>
       </div>
 
       <div class="flex flex-col gap-1">
@@ -150,3 +178,9 @@ const onFormSubmit = ({ valid, values }: { valid: boolean, values: IUserRegister
     </p>
   </div>
 </template>
+
+<style scoped>
+:deep(.p-inputtext::placeholder) {
+  @apply text-gray-400
+}
+</style>

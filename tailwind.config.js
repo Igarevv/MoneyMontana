@@ -16,10 +16,6 @@ export default {
                 'secondary-dark': '#2F2F2F',
                 'primary-white': '#F6F6F6'
             },
-            fontFamily: {
-                crimson: ['"Crimson Text"', 'serif'],
-                playfair: ['"Playfair Display"', 'serif'],
-            },
         },
     },
 };

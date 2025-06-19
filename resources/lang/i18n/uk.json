@@ -24,6 +24,9 @@
         "terms_link": "Користувацької угоди",
         "privacy_link": "Політики конфіденційності"
       },
+      "errors": {
+        "email_busy": "Цей email вже використовується."
+      },
       "placeholders": {
         "username": "Ім'я користувача"
       },
