@@ -11,8 +11,10 @@ RUN apk add --no-cache \
         libstdc++ \
         icu-libs \
     && rm -rf /var/cache/apk/*
+
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 COPY --from=builder /usr/local/etc/php/ /usr/local/etc/php/
-COPY --from=builder / ./
+
+COPY --from=builder /app /app
 
 CMD ["php", "artisan", "queue:work", "--queue=high,low", "--sleep=3", "--tries=3"]
