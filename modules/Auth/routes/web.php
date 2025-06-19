@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Controllers\RegisterController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('auths', AuthController::class)->names('auth');
-});
+Route::post('/register/preflight', [RegisterController::class, 'preflightCheck']);
+
+Route::post('/register', [RegisterController::class, 'register'])
+    ->middleware(['throttle:30,1']);
