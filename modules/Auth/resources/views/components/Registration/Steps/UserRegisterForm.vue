@@ -3,7 +3,8 @@ import { Form } from '@primevue/forms';
 import {reactive, ref} from 'vue';
 import { yupResolver } from '@primevue/forms/resolvers/yup';
 import * as yup from 'yup';
-import { InputText, Message } from 'primevue';
+import InputText from "primevue/inputtext";
+import Message from "primevue/message";
 import { router } from '@inertiajs/vue3'
 
 const props = defineProps<{
@@ -14,7 +15,7 @@ export interface IUserRegister {
   username: string;
   email: string;
   password: string;
-  password_confirm: string;
+  password_confirmation: string;
 }
 
 const emit = defineEmits<{
@@ -25,7 +26,7 @@ const initialValues = reactive<IUserRegister>({
   username: '',
   email: '',
   password: '',
-  password_confirm: ''
+  password_confirmation: ''
 });
 
 const showPreflightError = ref(false);
@@ -35,7 +36,7 @@ const resolver = yupResolver(
       username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters long'),
       email: yup.string().email('Invalid email address').required('Email is required'),
       password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters long'),
-      password_confirm: yup
+      password_confirmation: yup
           .string()
           .oneOf([yup.ref('password')], 'Passwords must match')
           .required('Please confirm your password')
@@ -144,13 +145,13 @@ const checkEmail = async (email: string) => {
         <label class="text-base text-black dark:text-white">{{ $t('registration.register.labels.password_confirm') }}</label>
         <div class="rounded-xl">
           <InputText
-              name="password_confirm"
+              name="password_confirmation"
               type="password"
               placeholder="*********"
               fluid
           />
         </div>
-        <Message v-if="$form.password_confirm?.invalid" severity="error" size="small" variant="simple">{{ $form.password_confirm.error.message }}</Message>
+        <Message v-if="$form.password_confirmation?.invalid" severity="error" size="small" variant="simple">{{ $form.password_confirmation.error.message }}</Message>
       </div>
 
       <div class="space-y-2">

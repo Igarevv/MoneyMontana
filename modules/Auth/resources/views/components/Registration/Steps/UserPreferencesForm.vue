@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {computed, ref, watch} from 'vue';
+import {computed, nextTick, ref} from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
-import {useLocaleChange} from "@/composables/useLocaleChange";
-import {useI18n} from "vue-i18n";
+import { useLocaleChange } from "@/composables/useLocaleChange";
+import { useI18n } from "vue-i18n";
 import DefaultToggleDark from "@/Shared/DarkMode/DefaultToggleDark.vue";
+import Button from "primevue/button";
 
 export interface Country {
   countryCode: string;
@@ -17,34 +18,32 @@ export interface Country {
 }
 
 const { t } = useI18n();
+const { currentLocale } = useLocaleChange();
 
 const props = defineProps<{
-  modelValueCountry: string | null; // раньше было: Country | null
-  modelValueCurrency: string | null;
+  nextStep: Function;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:modelValueCountry', value: string | null): void;
-  (e: 'update:modelValueCurrency', value: string | null): void;
+  (e: 'register', value: { country: string; currency: string }): void;
 }>();
 
 const selectedCurrency = ref<Country | null>(null);
-
 const selectedCountry = ref<Country | null>(null);
 
-const { currentLocale } = useLocaleChange();
+const countryTouched = ref(false);
+const currencyTouched = ref(false);
+
+const isCountryInvalid = computed(() => countryTouched.value && !selectedCountry.value);
+const isCurrencyInvalid = computed(() => currencyTouched.value && !selectedCurrency.value);
 
 const filteredCountries = ref<Country[]>([]);
-
 let allCountries: Country[] = [];
 
 async function loadCountries() {
-  if (allCountries.length > 0) {
-    return;
-  }
+  if (allCountries.length > 0) return;
 
   const data = await import('@/Meta/countries.json');
-
   allCountries = data.default.country.map((item: any) => ({
     ...item,
     label: `${item.countryName} (${item.currencyCode})`
@@ -56,42 +55,33 @@ async function searchCountry(event: { query: string }) {
 
   const query = event.query.toLowerCase();
 
-  filteredCountries.value = allCountries
-      .filter(c =>
-          c.countryName.toLowerCase().includes(query) ||
-          c.currencyCode.toLowerCase().includes(query) ||
-          c.capital.toLowerCase().includes(query)
-      );
+  filteredCountries.value = allCountries.filter(c =>
+      c.countryName.toLowerCase().includes(query) ||
+      c.currencyCode.toLowerCase().includes(query) ||
+      c.capital.toLowerCase().includes(query)
+  );
 }
 
-watch(
-    () => props.modelValueCurrency,
-    (code) => {
-      if (!code) return selectedCurrency.value = null;
+function onRegister() {
+  countryTouched.value = true;
 
-      const match = allCountries.find(c => c.currencyCode === code);
-      if (match) selectedCurrency.value = match;
-    },
-    { immediate: true }
-);
+  currencyTouched.value = true;
 
-watch(
-    () => selectedCountry.value,
-    (val) => {
-      emit('update:modelValueCountry', val?.countryCode ?? null);
-      emit('update:modelValueCurrency', val?.currencyCode ?? null);
-      if (val) {
-        selectedCurrency.value = val;
-      }
-    }
-);
+  if (selectedCountry.value && selectedCurrency.value) {
+    emit('register', {
+      country: selectedCountry.value.countryCode,
+      currency: selectedCurrency.value.currencyCode,
+    });
+    props.nextStep(3);
+  }
+}
 
-watch(
-    () => selectedCurrency.value,
-    (val) => {
-      emit('update:modelValueCurrency', val?.currencyCode ?? null);
-    }
-)
+function onCountryChange(country: Country | null) {
+  selectedCountry.value = country;
+  if (country) {
+    selectedCurrency.value = country;
+  }
+}
 </script>
 
 <template>
@@ -106,16 +96,21 @@ watch(
         </label>
         <div class="flex flex-row items-center gap-3 w-full">
           <AutoComplete
-              v-model="selectedCountry"
+              :modelValue="selectedCountry"
               :suggestions="filteredCountries"
+              @update:modelValue="onCountryChange"
               @complete="searchCountry"
               optionLabel="countryName"
               :placeholder="t('registration.setup_preferences.country_placeholder')"
               dropdown
               class="w-full"
+              @blur="countryTouched = true"
           />
           <i class="pi pi-check" :class="selectedCountry !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
+        <p v-if="isCountryInvalid" class="text-sm text-red-500 mt-1">
+          {{ t('registration.register.errors.country_required') }}
+        </p>
       </div>
 
       <div class="flex flex-col w-full">
@@ -141,8 +136,9 @@ watch(
               :placeholder="t('registration.setup_preferences.currency_placeholder')"
               class="w-full"
               dropdown
+              @blur="currencyTouched = true"
           >
-            <template #option="slotProps">
+          <template #option="slotProps">
               <div class="flex flex-col">
                 <span class="font-semibold">{{ slotProps.option.currencyCode }}</span>
                 <small class="text-gray-500">
@@ -153,6 +149,9 @@ watch(
           </AutoComplete>
           <i class="pi pi-check" :class="selectedCountry !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
+        <p v-if="isCurrencyInvalid" class="text-sm text-red-500 mt-1">
+          {{ t('registration.register.errors.currency_required') }}
+        </p>
       </div>
 
       <div class="flex flex-row gap-3">
@@ -160,6 +159,10 @@ watch(
         <default-toggle-dark/>
       </div>
     </div>
+  </div>
+  <div class="flex pt-6 justify-between">
+    <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="nextStep(1)"/>
+    <Button label="Register Now!" @click="onRegister"/>
   </div>
 </template>
 

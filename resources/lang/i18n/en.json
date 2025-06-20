@@ -25,7 +25,9 @@
         "privacy_link": "Privacy Policy"
       },
       "errors": {
-        "email_busy": "This email is already in use."
+        "email_busy": "This email is already in use.",
+        "currency_required": "Currency is required.",
+        "country_required": "Country is required."
       },
       "placeholders": {
         "username": "Username"

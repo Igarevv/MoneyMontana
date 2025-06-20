@@ -25,7 +25,9 @@
         "privacy_link": "Политики конфиденциальности"
       },
       "errors": {
-        "email_busy": "Этот email уже используется."
+        "email_busy": "Этот email уже используется.",
+        "currency_required": "Выберите предпочитаемую валюту.",
+        "country_required": "Выберите свою страну."
       },
       "placeholders": {
         "username": "Имя пользователя"

@@ -25,7 +25,9 @@
         "privacy_link": "Політики конфіденційності"
       },
       "errors": {
-        "email_busy": "Цей email вже використовується."
+        "email_busy": "Цей email вже використовується.",
+        "currency_required": "Валюта є обов'язковою.",
+        "country_required": "Країна є обов'язковою."
       },
       "placeholders": {
         "username": "Ім'я користувача"
