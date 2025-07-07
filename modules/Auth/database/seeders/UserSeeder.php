@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Auth\Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Modules\Auth\Models\User;
+
+class UserSeeder extends Seeder
+{
+    public function run(): void
+    {
+        User::factory(10)->create();
+    }
+}
