@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Modules\Auth\Http\RequestObjects\UserRegisterRO;
 use Modules\Auth\Http\Requests\PreflightRegisterRequest;
 use Modules\Auth\Http\Requests\RegisterUserRequest;
-use Modules\Auth\Services\RegistrationService;
+use Modules\Auth\Services\AuthUserService;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -20,8 +20,7 @@ class RegisterController extends Controller
         return redirect()->back();
     }
 
-    //TODO: возраст ошибок сделать более гибким
-    public function register(RegisterUserRequest $request, RegistrationService $service): RedirectResponse
+    public function register(RegisterUserRequest $request, AuthUserService $service): RedirectResponse
     {
         $registerRo = UserRegisterRO::fromRequest($request);
 

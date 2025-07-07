@@ -20,7 +20,7 @@ class AuthUserService
      */
     public function attempt(UserLoginRO $userLoginRO): void
     {
-        if (! Auth::attempt($userLoginRO->toArray(), $userLoginRO->remember)) {
+        if (! Auth::attempt($userLoginRO->toArray(['email', 'password']), $userLoginRO->remember)) {
             throw new LoginFailedException();
         }
     }
@@ -43,12 +43,26 @@ class AuthUserService
     /**
      * @throws AuthenticationException
      */
-    public function me(): ?Authenticatable
+    public function me(array $only = [], bool $mustBeAuth = false): ?User
     {
         if (Auth::check()) {
-            return Auth::user();
+            $user = Auth::user();
+
+            if (! empty($only)) {
+                $allAttributes = array_keys($user?->getAttributes());
+
+                $hidden = array_diff($allAttributes, $only);
+
+                $user?->makeHidden($hidden);
+            }
+
+            return $user;
         }
 
-        throw new AuthenticationException();
+        if ($mustBeAuth) {
+            throw new AuthenticationException();
+        }
+
+        return null;
     }
 }

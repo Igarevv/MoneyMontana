@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Modules\Main\Http\Controllers\MainController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('mains', MainController::class)->names('main');
+Route::middleware(['auth'])->group(function () {
+    Route::name("montana")->get('/montana', function () {
+        return Inertia::render('Dashboard');
+    });
 });

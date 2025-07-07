@@ -58,6 +58,7 @@
     },
     "login_btn": "Войти",
     "dont_have_account": "Еще нет аккаунта?",
-    "register_here": "Создайте сейчас!"
+    "register_here": "Создайте сейчас!",
+    "remember_me": "Запомнить меня"
   }
 }

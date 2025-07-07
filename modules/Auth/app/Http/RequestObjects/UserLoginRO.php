@@ -22,8 +22,19 @@ class UserLoginRO extends RequestObject
         ];
     }
 
-    public function toArray(): array
+    public function toArray(array $only = []): array
     {
+        if (! empty($only)) {
+            return array_intersect_key(
+                [
+                    'email' => $this->email,
+                    'password' => $this->password,
+                    'remember' => $this->remember
+                ],
+                array_flip($only)
+            );
+        }
+
         return [
             'email' => $this->email,
             'password' => $this->password,

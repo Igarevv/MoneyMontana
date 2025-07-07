@@ -22,6 +22,8 @@ return new class extends Migration
             $table->char('currency_code', 3);
             $table->char('preferred_theme', 10)->default('light');
             $table->timestamps();
+            $table->string('remember_token')->nullable();
+            $table->boolean('remember')->default(false);
         });
     }
 

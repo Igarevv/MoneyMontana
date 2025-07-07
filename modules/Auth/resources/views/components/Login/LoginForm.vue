@@ -7,6 +7,7 @@ import InputText from "primevue/inputtext";
 export interface IUserLogin {
   email: string;
   password: string;
+  remember: boolean;
 }
 
 const emit = defineEmits<{
@@ -72,6 +73,27 @@ const form = useForm({
           />
         </div>
         <Message v-if="form.errors.password" severity="error" size="small" variant="simple">{{ form.errors.password }}</Message>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-start gap-2 flex-col">
+          <div class="flex items-center">
+            <div class="flex items-center h-5">
+              <input
+                  id="remember"
+                  v-model="form.remember"
+                  aria-describedby="remember"
+                  type="checkbox"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+              >
+            </div>
+            <div class="ml-3 text-sm">
+              <label for="remember" class="text-gray-500 dark:text-gray-300">{{ $t('login.remember_me') }}</label>
+            </div>
+          </div>
+          <Message v-if="form.errors.remember" severity="error" size="small" variant="simple">{{ form.errors.remember }}</Message>
+        </div>
+        <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
       </div>
 
       <button

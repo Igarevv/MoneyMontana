@@ -7,6 +7,7 @@ use Brick\Money\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Auth\Database\Factories\UserFactory;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -14,10 +15,10 @@ use Ramsey\Uuid\Uuid;
  * @property string $username
  * @property string $email
  * @property string $password
- * @property string $country
- * @property string|null $theme
+ * @property string $country_code
+ * @property string|null $preferred_theme
  * @property string|null $locale
- * @property Currency $currency
+ * @property Currency $currency_code
  */
 class User extends Authenticatable
 {
@@ -53,6 +54,15 @@ class User extends Authenticatable
             if ($user->user_id === null) {
                 $user->user_id = Uuid::uuid7()->toString();
             }
+
+            if (! $user->created_at) {
+                $user->created_at = now();
+            }
         });
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
     }
 }

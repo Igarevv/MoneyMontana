@@ -58,6 +58,7 @@
     },
     "login_btn": "Log In",
     "dont_have_account": "Don`t have an account?",
-    "register_here": "Register Now!"
+    "register_here": "Register Now!",
+    "remember_me": "Stay logged in"
   }
 }
