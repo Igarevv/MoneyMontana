@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { Link } from "@inertiajs/vue3"
 import {useForm} from "@inertiajs/vue3";
 import Message from "primevue/message";
 import InputText from "primevue/inputtext";
@@ -85,7 +85,7 @@ const form = useForm({
 
     <p class="text-sm text-gray-500 dark:text-gray-300 text-center">
       {{ $t('login.dont_have_account') }}
-      <a href="#" class="text-blue-500 underline">{{ $t('login.register_here') }}</a>
+      <Link href="/" class="text-blue-500 underline">{{ $t('login.register_here') }}</Link>
     </p>
   </div>
 </template>

@@ -4,6 +4,8 @@ import { setupI18n } from './i18n.config.ts';
 import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
+import Cookies from "js-cookie";
+import axios from "axios";
 
 createInertiaApp({
     resolve: (name) => {
@@ -11,7 +13,7 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`];
     },
     setup({ el, App, props, plugin }) {
-        const i18n = setupI18n(props.locale || 'en');
+        const i18n = setupI18n(Cookies.get('locale') || 'en');
 
         const app = createSSRApp({
             render: () => h(App, props),

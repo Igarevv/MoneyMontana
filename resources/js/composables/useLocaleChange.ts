@@ -20,7 +20,6 @@ export function useLocaleChange() {
         if (availableCodes.includes(newLocale)) {
             Cookies.set('locale', newLocale, {
                 expires: 365,
-                httpOnly: true,
                 path: '/',
                 sameSite: 'Lax',
                 secure: false
