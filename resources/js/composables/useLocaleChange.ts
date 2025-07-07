@@ -20,6 +20,7 @@ export function useLocaleChange() {
         if (availableCodes.includes(newLocale)) {
             Cookies.set('locale', newLocale, {
                 expires: 365,
+                httpOnly: true,
                 path: '/',
                 sameSite: 'Lax',
                 secure: false
@@ -33,8 +34,19 @@ export function useLocaleChange() {
         }
     };
 
+    const cycleLocale = () => {
+        const currentIndex = availableCodes.indexOf(currentLocale.value);
+
+        const nextIndex = (currentIndex + 1) % availableCodes.length;
+
+        const nextLocale = availableCodes[nextIndex];
+
+        changeLocale(nextLocale);
+    };
+
     return {
         currentLocale: currentLocale.value,
-        changeLocale
+        changeLocale,
+        cycleLocale
     };
 }

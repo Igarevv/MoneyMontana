@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" xmlns="http://www.w3.org/1999/html">
 import { Form } from '@primevue/forms';
 import {reactive, ref} from 'vue';
 import { yupResolver } from '@primevue/forms/resolvers/yup';
@@ -6,6 +6,8 @@ import * as yup from 'yup';
 import InputText from "primevue/inputtext";
 import Message from "primevue/message";
 import { router } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+
 
 const props = defineProps<{
   nextStep: Function;
@@ -79,7 +81,7 @@ const checkEmail = async (email: string) => {
   <div class="w-full max-w-md p-8 space-y-6 dark:bg-primary-dark">
     <h2 class="text-2xl font-bold text-black dark:text-white text-center">{{ $t('registration.register.title') }}</h2>
 
-    <div class="flex space-x-4">
+<!--    <div class="flex space-x-4">
       <button
           class="flex items-center gap-2 w-full justify-center px-4 py-2 border cursor-pointer border-gray-600 dark:border-gray-400 rounded-lg text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition"
       >
@@ -98,7 +100,7 @@ const checkEmail = async (email: string) => {
       <hr class="w-full border-gray-300 dark:border-gray-600" />
       <span class="px-3 text-sm">{{ $t('registration.register.or') }}</span>
       <hr class="w-full border-gray-300 dark:border-gray-600" />
-    </div>
+    </div>-->
 
     <Form class="space-y-4" v-slot="$form" :initialValues :resolver="resolver" @submit="onFormSubmit">
       <div class="flex flex-col gap-1">
@@ -175,7 +177,7 @@ const checkEmail = async (email: string) => {
 
     <p class="text-sm text-gray-500 dark:text-gray-300 text-center">
       {{ $t('registration.register.already_have_account') }}
-      <a href="#" class="text-blue-500 underline">{{ $t('registration.register.buttons.login_here') }}</a>
+      <Link href="/login" class="text-blue-500 underline">{{ $t('registration.register.buttons.login_here') }}</Link>
     </p>
   </div>
 </template>

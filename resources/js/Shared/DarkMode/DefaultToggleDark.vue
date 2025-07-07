@@ -1,25 +1,8 @@
 <script setup lang="ts">
-import {ref, onMounted, watch, computed} from 'vue'
 import { ToggleSwitch } from 'primevue'
-import {getCurrentTheme, switchTheme} from "@/Load/darkMode";
+import {useThemeToggle} from "@/composables/useThemeToggle";
 
-const isDark = ref(false);
-
-onMounted(() => {
-  isDark.value = getCurrentTheme() === 'dark'
-})
-
-const isLightToggle = computed({
-  get: () => !isDark.value,
-  set: (val: boolean) => {
-    isDark.value = !val;
-  }
-});
-
-
-watch(isDark, (newVal) => {
-  switchTheme(newVal);
-})
+const { isLightToggle } = useThemeToggle();
 </script>
 
 <template>

@@ -48,5 +48,16 @@
       "description": "Join hundreds of users who track spending, plan budgets, and achieve financial goals — all in one smart system. Your personal hub for managing money with clarity and confidence.",
       "footer": "Money Montana - All rights reserved."
     }
+  },
+  "login": {
+    "title": "Welcome Back! Login Now",
+    "or": "or",
+    "labels": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "login_btn": "Log In",
+    "dont_have_account": "Don`t have an account?",
+    "register_here": "Register Now!"
   }
 }
