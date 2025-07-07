@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo('/login');
 
+        $middleware->redirectUsersTo('/montana');
+
         $middleware->web(append: [
             SetLocaleMiddleware::class,
             HandleInertiaRequests::class

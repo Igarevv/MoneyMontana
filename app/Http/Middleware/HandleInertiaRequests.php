@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Modules\Auth\Services\AuthUserService;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -35,9 +36,32 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = new AuthUserService()->me(only: [
+            'id',
+            'user_id',
+            'username',
+            'email',
+            'locale',
+            'currency_code',
+            'preferred_theme'
+        ]);
+
         return [
             ...parent::share($request),
-            'locale' => $request->getLocale(),
+            'locale' => app()->getLocale(),
+            'auth' => $user ? [
+                'user' => [
+                    'email' => $user->email,
+                    'username' => $user->username,
+                    'pid' => $user->user_id,
+                    'id' => $user->id
+                ],
+                'preferences' => [
+                    'locale' => $user->locale,
+                    'theme' => $user->preferred_theme,
+                    'currency' => $user->currency_code
+                ]
+            ] : null
         ];
     }
 }
