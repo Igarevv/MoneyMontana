@@ -1,6 +1,6 @@
 import {createI18n} from 'vue-i18n'
-import en from '../lang/i18n/en.json'
-import ru from '../lang/i18n/ru.json'
+import en from '@/lang/i18n/en.json'
+import ru from '@/lang/i18n/ru.json'
 
 export enum SupportedLocales {
     EN = 'en',
