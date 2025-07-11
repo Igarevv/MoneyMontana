@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('country_code', 2);
             $table->char('currency_code', 3);
             $table->char('preferred_theme', 10)->default('light');
+            $table->tinyInteger('employment_type');
             $table->timestamps();
             $table->string('remember_token')->nullable();
             $table->boolean('remember')->default(false);

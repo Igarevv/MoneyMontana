@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Auth\Http\Requests;
 
-use Brick\Money\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 
 class RegisterUserRequest extends FormRequest
 {
@@ -20,6 +20,11 @@ class RegisterUserRequest extends FormRequest
             'country' => ['required', 'string', 'max:2'],
             'theme' => ['nullable', Rule::in(['light', 'dark'])],
             'locale' => ['nullable', Rule::in(array_keys(config('app.available_locales')))],
+            'employment_type' => ['required', Rule::in([
+                'student',
+                'unemployed',
+                'employed'
+            ])],
         ];
     }
 }

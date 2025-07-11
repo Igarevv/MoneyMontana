@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\Auth\Database\Factories\UserFactory;
+use Modules\Auth\Enums\EmploymentType;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -18,6 +19,7 @@ use Ramsey\Uuid\Uuid;
  * @property string $country_code
  * @property string|null $preferred_theme
  * @property string|null $locale
+ * @property EmploymentType $employment_type
  * @property Currency $currency_code
  */
 class User extends Authenticatable
@@ -32,6 +34,7 @@ class User extends Authenticatable
         'preferred_theme',
         'locale',
         'currency_code',
+        'employment_type'
     ];
 
     protected $hidden = [
@@ -42,7 +45,8 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
-            'currency' => CurrencyCast::class
+            'currency' => CurrencyCast::class,
+            'employment_type' => EmploymentType::class
         ];
     }
 

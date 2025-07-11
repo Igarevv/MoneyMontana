@@ -36,6 +36,7 @@ class AuthUserService
                 'preferred_theme' => $registerRO->theme,
                 'locale' => $registerRO->locale,
                 'currency_code' => $registerRO->currency,
+                'employment_type' => $registerRO->employment_type->value
             ]);
         });
     }

@@ -6,6 +6,7 @@ namespace Modules\Auth\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Modules\Auth\Enums\EmploymentType;
 use Modules\Auth\Models\User;
 
 class UserFactory extends Factory
@@ -21,7 +22,8 @@ class UserFactory extends Factory
             'preferred_theme' => $this->faker->randomElement(['light', 'dark']),
             'locale' => $this->faker->randomElement(['ru', 'en']),
             'currency_code' => $this->faker->currencyCode(),
-            'password' => Hash::make($this->faker->password())
+            'password' => Hash::make($this->faker->password()),
+            'employment_type' => $this->faker->randomElement(EmploymentType::cases())
         ];
     }
 }

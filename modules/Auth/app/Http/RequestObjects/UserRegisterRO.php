@@ -6,6 +6,7 @@ namespace Modules\Auth\Http\RequestObjects;
 
 use App\Helpers\RequestObject;
 use Brick\Money\Currency;
+use Modules\Auth\Enums\EmploymentType;
 
 /**
  * @property string $username
@@ -15,6 +16,7 @@ use Brick\Money\Currency;
  * @property string|null $theme
  * @property string|null $locale
  * @property Currency $currency
+ * @property EmploymentType $employment_type
  */
 class UserRegisterRO extends RequestObject
 {
@@ -28,6 +30,7 @@ class UserRegisterRO extends RequestObject
             'country' => 'string',
             'theme' => 'string#light',
             'locale' => 'string#en',
+            'employment_type' => [EmploymentType::class, 'fromString']
         ];
     }
 }

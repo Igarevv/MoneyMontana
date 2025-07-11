@@ -6,6 +6,7 @@ namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Modules\Auth\Http\RequestObjects\UserRegisterRO;
 use Modules\Auth\Http\Requests\PreflightRegisterRequest;
 use Modules\Auth\Http\Requests\RegisterUserRequest;
@@ -27,6 +28,8 @@ class RegisterController extends Controller
         try {
             $service->saveUser($registerRo);
         } catch (Throwable $e) {
+            Log::error($e->getMessage());
+
             return redirect()->back()->withErrors([
                 'message' => 'Unknown error occurred during registration',
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR
