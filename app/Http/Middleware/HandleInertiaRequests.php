@@ -43,25 +43,26 @@ class HandleInertiaRequests extends Middleware
             'email',
             'locale',
             'currency_code',
-            'preferred_theme'
+            'preferred_theme',
         ]);
 
         return [
             ...parent::share($request),
             'locale' => app()->getLocale(),
+            'logged_just_now' => $request->session()->get('logged_just_now', false),
             'auth' => $user ? [
                 'user' => [
                     'email' => $user->email,
                     'username' => $user->username,
                     'pid' => $user->user_id,
-                    'id' => $user->id
+                    'id' => $user->id,
                 ],
                 'preferences' => [
                     'locale' => $user->locale,
                     'theme' => $user->preferred_theme,
-                    'currency' => $user->currency_code
-                ]
-            ] : null
+                    'currency' => $user->currency_code,
+                ],
+            ] : null,
         ];
     }
 }

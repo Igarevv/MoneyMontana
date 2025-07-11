@@ -3,10 +3,13 @@ import PanelSidebar from "@/Shared/Panel/PanelSidebar.vue";
 import Header from "@/Shared/Panel/Header.vue";
 import {provide, ref} from "vue";
 import Footer from "@/Shared/Panel/Footer.vue";
+import {usePreferences} from "@/composables/usePreferences";
 
 const visible = ref(false);
 
 provide('visible', visible);
+
+usePreferences();
 </script>
 
 <template>

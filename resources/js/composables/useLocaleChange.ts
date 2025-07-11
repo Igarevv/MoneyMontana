@@ -1,14 +1,14 @@
-import { ref, computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
-import { useI18n } from "vue-i18n";
+import {ref} from "vue";
+import {usePage} from "@inertiajs/vue3";
+import {useI18n} from "vue-i18n";
 import Cookies from "js-cookie";
 import availableLanguages from "@/utils/availableLanguages";
-import { SupportedLocales } from "@/i18n.config";
+import {SupportedLocales} from "@/i18n.config";
 
 export function useLocaleChange() {
     const page = usePage();
 
-    const { locale: i18nLocale } = useI18n();
+    const {locale: i18nLocale} = useI18n();
 
     const currentLocale = ref<SupportedLocales>(
         (page.props.locale as SupportedLocales) || SupportedLocales.EN
@@ -44,7 +44,7 @@ export function useLocaleChange() {
     };
 
     return {
-        currentLocale: currentLocale.value,
+        currentLocale: currentLocale,
         changeLocale,
         cycleLocale
     };

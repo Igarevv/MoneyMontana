@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->char('locale', 2)->default(config('app.locale', 'en'));
             $table->char('country_code', 2);
             $table->char('currency_code', 3);
-            $table->char('preferred_theme', 10)->default('light');
+            $table->string('preferred_theme', 5)->default('light');
             $table->tinyInteger('employment_type');
             $table->timestamps();
             $table->string('remember_token')->nullable();

@@ -13,7 +13,7 @@ use Modules\Auth\Services\AuthUserService;
 class LoginController extends Controller
 {
     public function __construct(
-        private AuthUserService $service
+        private AuthUserService $service,
     ) {}
 
     public function login(LoginRequest $request): RedirectResponse
@@ -22,6 +22,6 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('montana');
+        return redirect()->route('montana')->with('logged_just_now', true);
     }
 }

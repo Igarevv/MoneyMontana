@@ -1,5 +1,5 @@
-import { ref, computed, onMounted, watch } from 'vue';
-import { getCurrentTheme, switchTheme } from '@/Load/darkMode';
+import {computed, onMounted, ref, watch} from 'vue';
+import {getCurrentTheme, switchTheme} from '@/Load/darkMode';
 
 export function useThemeToggle() {
     const isDark = ref(false);
@@ -15,6 +15,11 @@ export function useThemeToggle() {
         }
     });
 
+    const toggleByTheme = (theme: string) => {
+        isDark.value = theme === 'dark';
+        switchTheme(isDark.value);
+    }
+
     const toggleDark = () => {
         isDark.value = !isDark.value;
     }
@@ -26,6 +31,7 @@ export function useThemeToggle() {
     return {
         isDark,
         isLightToggle,
-        toggleDark
+        toggleDark,
+        toggleByTheme
     };
 }
