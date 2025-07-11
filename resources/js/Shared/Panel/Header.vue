@@ -8,7 +8,7 @@ const visible = inject<boolean>('visible');
 </script>
 
 <template>
-  <header class="p-4 border-b">
+  <header class="sticky-top p-4 border-b dark:border-dark-primary-gray">
     <div class="flex gap-2 items-center justify-between">
       <h1 class="text-xl font-bold">Dashboard</h1>
       <div class="flex gap-2 items-center">

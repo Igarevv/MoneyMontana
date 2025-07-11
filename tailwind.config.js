@@ -15,7 +15,9 @@ export default {
                 'primary-dark': '#111111',
                 'secondary-dark': '#2F2F2F',
                 'primary-white': '#F6F6F6',
-                'panel-primary-bg': '#F9F9FB'
+                'panel-primary-bg': '#F9F9FB',
+                'dark-primary-gray': '#303234',
+                'light-gray': '#626264'
             },
         },
     },

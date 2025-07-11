@@ -19,7 +19,7 @@ const visible = inject<boolean>('visible', false);
 
         </div>
         <div class="mt-auto">
-          <hr class="mb-4 mx-4 border-t border-0 border-surface-200 dark:border-surface-700"/>
+          <hr class="mb-4 mx-4 border-t border-0 border-surface-200 dark:border-dark-primary-gray"/>
         </div>
       </div>
     </template>
