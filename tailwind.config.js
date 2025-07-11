@@ -14,7 +14,8 @@ export default {
                 'primary-yellow': '#FFCB74',
                 'primary-dark': '#111111',
                 'secondary-dark': '#2F2F2F',
-                'primary-white': '#F6F6F6'
+                'primary-white': '#F6F6F6',
+                'panel-primary-bg': '#F9F9FB'
             },
         },
     },

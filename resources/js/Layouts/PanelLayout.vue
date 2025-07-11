@@ -16,8 +16,8 @@ provide('visible', visible);
     <div class="flex flex-1">
       <panel-sidebar/>
 
-      <main class="flex-1 p-6 bg-white dark:bg-gray-800">
-        <slot />
+      <main class="flex-1 p-6 bg-panel-primary-bg dark:bg-gray-800">
+        <slot/>
       </main>
     </div>
 
