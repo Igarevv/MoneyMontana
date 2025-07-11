@@ -8,7 +8,22 @@
       "currency_label": "Предпочитаемая валюта",
       "currency_placeholder": "USD",
       "currency_country_prefix": "Страна:",
-      "theme_mode": "Темный режим"
+      "theme_mode": "Темный режим",
+      "employment_type_label": "Ваш текущий статус",
+      "employment_type": [
+        {
+          "label": "Студент",
+          "value": "student"
+        },
+        {
+          "label": "Безработный",
+          "value": "unemployed"
+        },
+        {
+          "label": "Трудоустроеный",
+          "value": "employed"
+        }
+      ]
     },
     "register": {
       "title": "Ваш лучший трекер начинается здесь",

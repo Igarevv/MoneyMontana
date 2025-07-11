@@ -11,6 +11,7 @@ import { Link } from '@inertiajs/vue3'
 
 const props = defineProps<{
   nextStep: Function;
+  errors: { username?: string; email?: string, password?: string, password_confirmation?: string };
 }>();
 
 export interface IUserRegister {
@@ -114,6 +115,7 @@ const checkEmail = async (email: string) => {
           />
         </div>
         <Message v-if="$form.username?.invalid" severity="error" size="small" variant="simple">{{ $form.username.error.message }}</Message>
+        <Message v-else-if="errors?.username" severity="error" size="small" variant="simple">{{ errors.username }}</Message>
       </div>
 
       <div class="flex flex-col gap-1">
@@ -127,6 +129,7 @@ const checkEmail = async (email: string) => {
           />
         </div>
         <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error.message }}</Message>
+        <Message v-else-if="errors?.email" severity="error" size="small" variant="simple">{{ errors.email }}</Message>
         <Message v-if="showPreflightError" severity="error" size="small" variant="simple">{{ $t('registration.register.errors.email_busy') }}</Message>
       </div>
 
@@ -141,6 +144,7 @@ const checkEmail = async (email: string) => {
           />
         </div>
         <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error.message }}</Message>
+        <Message v-else-if="errors?.password" severity="error" size="small" variant="simple">{{ errors.password }}</Message>
       </div>
 
       <div class="flex flex-col gap-1">
@@ -154,6 +158,7 @@ const checkEmail = async (email: string) => {
           />
         </div>
         <Message v-if="$form.password_confirmation?.invalid" severity="error" size="small" variant="simple">{{ $form.password_confirmation.error.message }}</Message>
+        <Message v-else-if="errors?.password_confirmation" severity="error" size="small" variant="simple">{{ errors.password_confirmation }}</Message>
       </div>
 
       <div class="space-y-2">

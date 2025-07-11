@@ -8,7 +8,22 @@
       "currency_label": "Your preferred currency",
       "currency_placeholder": "USD",
       "currency_country_prefix": "Country:",
-      "theme_mode": "Theme Mode"
+      "theme_mode": "Theme Mode",
+      "employment_type_label": "Your current status",
+      "employment_type": [
+        {
+          "label": "Student",
+          "value": "student"
+        },
+        {
+          "label": "Unemployed",
+          "value": "unemployed"
+        },
+        {
+          "label": "Employed",
+          "value": "employed"
+        }
+      ]
     },
     "register": {
       "title": "Your Best Tracker Starts Here",

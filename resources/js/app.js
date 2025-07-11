@@ -5,7 +5,8 @@ import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import Cookies from "js-cookie";
-import axios from "axios";
+import Ripple from 'primevue/ripple';
+import StyleClass from 'primevue/styleclass';
 
 createInertiaApp({
     resolve: (name) => {
@@ -18,6 +19,9 @@ createInertiaApp({
         const app = createSSRApp({
             render: () => h(App, props),
         });
+
+        app.directive('ripple', Ripple)
+        app.directive('styleclass', StyleClass)
 
         app.use(plugin)
             .use(i18n)

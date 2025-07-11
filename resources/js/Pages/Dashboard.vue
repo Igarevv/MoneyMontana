@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import PanelLayout from "@/Layouts/PanelLayout.vue";
 
+defineOptions({
+  layout: PanelLayout
+})
 </script>
 
 <template>
-hello from dashboard
+  <h2>content</h2>
 </template>
-
-<style scoped>
-
-</style>

@@ -3,12 +3,17 @@
     <Stepper v-model:value="activeStep" class="basis-[40rem]">
       <StepPanels>
         <StepPanel v-slot="{ activateCallback }" :value="1">
-          <Form :next-step="activateCallback" @user-created="onUserCreated"/>
+          <Form
+              :next-step="activateCallback"
+              @user-created="onUserCreated"
+              :errors="userValidationErrors"
+          />
         </StepPanel>
         <StepPanel v-slot="{ activateCallback }" :value="2">
           <UserPreferencesForm
               :next-step="activateCallback"
               @register="onRegister"
+              :errors="preferencesValidationErrors"
           />
         </StepPanel>
         <StepPanel :value="3">
@@ -44,6 +49,7 @@ import {getCurrentTheme} from "@/Load/darkMode";
 import {useLocaleChange} from "@/composables/useLocaleChange";
 import ProgressSpinner from "primevue/progressspinner"
 import {AuthService} from "@Modules/Auth/resources/views/services/AuthService";
+import { router } from '@inertiajs/vue3'
 
 export interface UserRegisterRequest {
   user: IUserRegister,
@@ -65,12 +71,14 @@ const userPreferencesData = reactive<{
   country: string | null,
   currency: string | null,
   theme: string,
-  locale: SupportedLocales
+  locale: SupportedLocales,
+  employment_type: string | null
 }>({
   country: null,
   currency: null,
   theme: getCurrentTheme(),
-  locale: useLocaleChange().currentLocale
+  locale: useLocaleChange().currentLocale,
+  employment_type: null
 });
 
 const registrationSuccess = ref(false);
@@ -79,30 +87,48 @@ const registrationFailed = ref(false);
 
 const activeStep = ref(1);
 
+const preferencesValidationErrors = ref({});
+
+const userValidationErrors = ref({});
+
 const onUserCreated = (user: IUserRegister) => {
   userRegisterData.user = user;
 
   activeStep.value = 2;
 };
 
-const onRegister = (countryCurrency: { currency: string, country: string}) => {
-  userPreferencesData.country = countryCurrency.country;
+const onRegister = (preferences: { currency: string, country: string, employmentType: string }) => {
+  userPreferencesData.country = preferences.country;
 
-  userPreferencesData.currency = countryCurrency.currency;
+  userPreferencesData.currency = preferences.currency;
+
+  userPreferencesData.employment_type = preferences.employmentType;
 
   AuthService.register(
       { user: userRegisterData.user, preferences: userPreferencesData} as UserRegisterRequest,
       () => {
         registrationSuccess.value = true;
-        //TODO: перенаправить на страницу входа
+
+        setTimeout(() => router.visit('/login'), 500);
       },
       (errors) => {
+        registrationSuccess.value = false;
+
         if (errors?.status) {
           registrationFailed.value = true;
 
           return;
         }
-        //TODO: валидацию вывести
+
+        if (['username', 'email', 'password'].some(key => !!errors?.[key])) {
+          activeStep.value = 1;
+
+          userValidationErrors.value = errors;
+        } else {
+          activeStep.value = 2;
+
+          preferencesValidationErrors.value = errors;
+        }
       },
       () => {
         activeStep.value = 3;

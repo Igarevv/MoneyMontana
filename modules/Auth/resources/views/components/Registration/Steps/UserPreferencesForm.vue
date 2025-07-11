@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {computed, nextTick, ref} from 'vue';
+import {computed, ref} from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
 import { useLocaleChange } from "@/composables/useLocaleChange";
 import { useI18n } from "vue-i18n";
 import DefaultToggleDark from "@/Shared/DarkMode/DefaultToggleDark.vue";
 import Button from "primevue/button";
+import Select from 'primevue/select';
 
 export interface Country {
   countryCode: string;
@@ -17,19 +18,32 @@ export interface Country {
   label: string;
 }
 
-const { t } = useI18n();
+export interface EmploymentType {
+  label: string;
+  value: string;
+}
+
+const { t, tm } = useI18n();
 const { currentLocale } = useLocaleChange();
 
 const props = defineProps<{
   nextStep: Function;
+  errors: { country?: string, currency?: string, employment_type?: string };
 }>();
 
 const emit = defineEmits<{
-  (e: 'register', value: { country: string; currency: string }): void;
+  (e: 'register', value: { country: string; currency: string, employmentType: string }): void;
 }>();
 
+const employmentOptions = tm('registration.setup_preferences.employment_type') as Array<{ label: string, value: string }>
+
 const selectedCurrency = ref<Country | null>(null);
+
 const selectedCountry = ref<Country | null>(null);
+
+const selectedEmploymentType = ref(
+    employmentOptions.find(opt => opt.value === t('registration.setup_preferences.employment_type.2.value'))
+);
 
 const countryTouched = ref(false);
 const currencyTouched = ref(false);
@@ -67,10 +81,11 @@ function onRegister() {
 
   currencyTouched.value = true;
 
-  if (selectedCountry.value && selectedCurrency.value) {
+  if (selectedCountry.value && selectedCurrency.value && selectedEmploymentType.value) {
     emit('register', {
       country: selectedCountry.value.countryCode,
       currency: selectedCurrency.value.currencyCode,
+      employmentType: selectedEmploymentType.value.value
     });
     props.nextStep(3);
   }
@@ -110,6 +125,9 @@ function onCountryChange(country: Country | null) {
         </div>
         <p v-if="isCountryInvalid" class="text-sm text-red-500 mt-1">
           {{ t('registration.register.errors.country_required') }}
+        </p>
+        <p v-else-if="errors?.country" class="text-sm text-red-500 mt-1">
+          {{ errors.country }}
         </p>
       </div>
 
@@ -151,6 +169,28 @@ function onCountryChange(country: Country | null) {
         </div>
         <p v-if="isCurrencyInvalid" class="text-sm text-red-500 mt-1">
           {{ t('registration.register.errors.currency_required') }}
+        </p>
+        <p v-else-if="errors?.currency" class="text-sm text-red-500 mt-1">
+          {{ errors.currency }}
+        </p>
+      </div>
+
+      <div class="flex flex-col w-full">
+        <label class="text-base text-black dark:text-white">
+          {{ t('registration.setup_preferences.employment_type_label') }}
+        </label>
+        <div class="flex flex-row items-center gap-3 w-full">
+          <Select
+              v-model="selectedEmploymentType"
+              :options="employmentOptions"
+              optionLabel="label"
+              class="w-full"
+          >
+          </Select>
+          <i class="pi pi-check" :class="selectedEmploymentType !== null ? 'text-green-500' : 'text-gray-800'"></i>
+        </div>
+        <p v-if="errors?.employment_type" class="text-sm text-red-500 mt-1">
+          {{ errors.employment_type }}
         </p>
       </div>
 
