@@ -1,4 +1,5 @@
 {
     "Auth": true,
-    "Main": true
+    "Main": true,
+    "ExpenseAccount": true
 }

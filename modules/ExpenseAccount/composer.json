@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/expenseaccount",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ExpenseAccount\\": "app/",
+            "Modules\\ExpenseAccount\\Database\\Factories\\": "database/factories/",
+            "Modules\\ExpenseAccount\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ExpenseAccount\\Tests\\": "tests/"
+        }
+    }
+}
