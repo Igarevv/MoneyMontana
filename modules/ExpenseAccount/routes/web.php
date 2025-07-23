@@ -1,8 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\ExpenseAccount\Http\Controllers\ExpenseAccountController;
+use Modules\ExpenseAccount\app\Http\Controllers\ExpenseAccountingCreateController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('expenseaccounts', ExpenseAccountController::class)->names('expenseaccount');
+Route::middleware('auth')->group(function () {
+    Route::prefix('expense-accounting')->group(function () {
+        Route::get('/');
+
+        Route::post(
+            '/add',
+            [ExpenseAccountingCreateController::class, 'add'],
+        );
+    });
 });
