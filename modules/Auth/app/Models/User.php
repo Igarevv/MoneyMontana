@@ -5,10 +5,12 @@ namespace Modules\Auth\Models;
 use App\DefaultCasts\CurrencyCast;
 use Brick\Money\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\Auth\Database\Factories\UserFactory;
 use Modules\Auth\Enums\EmploymentType;
+use Modules\Auth\Models\RelationsTraits\UserRelations;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -21,10 +23,13 @@ use Ramsey\Uuid\Uuid;
  * @property string|null $locale
  * @property EmploymentType $employment_type
  * @property Currency $currency_code
+ * @method HasMany expenseAccounts()
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+    use UserRelations;
 
     protected $fillable = [
         'username',
@@ -34,7 +39,7 @@ class User extends Authenticatable
         'preferred_theme',
         'locale',
         'currency_code',
-        'employment_type'
+        'employment_type',
     ];
 
     protected $hidden = [
@@ -46,7 +51,7 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
             'currency' => CurrencyCast::class,
-            'employment_type' => EmploymentType::class
+            'employment_type' => EmploymentType::class,
         ];
     }
 
