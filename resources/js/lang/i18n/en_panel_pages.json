@@ -2,7 +2,24 @@
   "expense_accounting": {
     "title": "Expense Accounting",
     "all_expenses": {
-      "title": "All Expenses"
+      "title": "All Expenses",
+      "add": "Add New",
+      "add_form": {
+        "input_label": "Expense name...",
+        "input_description": "Description (optional)...",
+        "expense_disposable": {
+          "label": "Disposable Expense",
+          "description": "One-time expense and will not be tracked in the balance sheet."
+        },
+        "expense_subscription": {
+          "label": "Subscription Expense",
+          "description": "Recurring expense and will be tracked in the balance sheet."
+        },
+        "expense_repeatable": {
+          "label": "Repeatable Expense",
+          "description": "Repeatable expense and will be tracked in the balance sheet."
+        }
+      }
     }
   }
 }

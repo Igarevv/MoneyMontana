@@ -12,7 +12,7 @@
     </div>
     <div class="mt-4">
       <span class="text-surface-600 dark:text-surface-300 font-medium leading-tight">72 new</span>
-      <span class="text-surface-500 dark:text-surface-300 leading-tight"> user this week</span>
+      <span class="text-surface-500 dark:text-surface-300 leading-tight">user this week</span>
     </div>
   </div>
 </template>

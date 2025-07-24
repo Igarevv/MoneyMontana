@@ -25,7 +25,7 @@ usePreferences();
     <div class="flex flex-1 relative">
       <PanelSidebar/>
 
-      <main class="flex-1 p-6 relative z-10 overflow-hidden">
+      <main class="flex-1 p-6 relative z-10 overflow-hidden bg-panel-primary-bg">
         <div class="absolute inset-0 -z-10 pointer-events-none">
           <div class="dark:hidden">
             <div class="w-[500px] h-[500px] bg-[#fcb69f]/30 rounded-full blur-[200px] absolute top-10 left-[40%]"></div>

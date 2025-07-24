@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import ExpenseCard from "@Modules/ExpenseAccount/resources/views/components/Expenses/ExpenseCard.vue";
-import ExpenseAddCard from "@Modules/ExpenseAccount/resources/views/components/Expenses/ExpenseAddCard.vue";
+import ExpenseAddCard from "@Modules/ExpenseAccount/resources/views/components/Expenses/Add/ExpenseAddCard.vue";
 
 const {t} = useI18n();
 </script>
