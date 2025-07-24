@@ -75,5 +75,19 @@
     "dont_have_account": "Еще нет аккаунта?",
     "register_here": "Создайте сейчас!",
     "remember_me": "Запомнить меня"
+  },
+  "sidebar": {
+    "menu": [
+      {
+        "label": "Главная",
+        "icon": "pi pi-home",
+        "route": "/montana"
+      },
+      {
+        "label": "Учет расходов",
+        "icon": "pi pi-wallet",
+        "route": "/montana/expense-accounting"
+      }
+    ]
   }
 }

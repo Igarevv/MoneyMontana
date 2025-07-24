@@ -7,6 +7,12 @@ import {usePreferences} from "@/composables/usePreferences";
 
 const visible = ref(false);
 
+defineProps({
+  title: {
+    type: String,
+  }
+});
+
 provide('visible', visible);
 
 usePreferences();
@@ -14,7 +20,7 @@ usePreferences();
 
 <template>
   <div class="min-h-screen flex flex-col relative overflow-hidden">
-    <Header/>
+    <Header :title="title"/>
 
     <div class="flex flex-1 relative">
       <PanelSidebar/>

@@ -75,5 +75,19 @@
     "dont_have_account": "Don`t have an account?",
     "register_here": "Register Now!",
     "remember_me": "Stay logged in"
+  },
+  "sidebar": {
+    "menu": [
+      {
+        "label": "Dashboard",
+        "icon": "pi pi-home",
+        "route": "/montana"
+      },
+      {
+        "label": "Expense Accounting",
+        "icon": "pi pi-wallet",
+        "route": "/montana/expense-accounting"
+      }
+    ]
   }
 }

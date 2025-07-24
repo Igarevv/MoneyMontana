@@ -2,6 +2,7 @@
 import {inject} from "vue";
 import Drawer from 'primevue/drawer';
 import AppLogoDark from "@/Shared/AppLogoDark.vue";
+import Menu from "@/Shared/Panel/Menu.vue";
 
 const visible = inject<boolean>('visible', false);
 </script>
@@ -9,14 +10,14 @@ const visible = inject<boolean>('visible', false);
 <template>
   <Drawer v-model:visible="visible">
     <template #container="{ closeCallback }">
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full gap-8">
         <div class="flex items-center justify-center px-6 pt-4 shrink-0">
           <div class="inline-flex items-center gap-2">
             <AppLogoDark/>
           </div>
         </div>
         <div class="overflow-y-auto">
-
+          <Menu/>
         </div>
         <div class="mt-auto">
           <hr class="mb-4 mx-4 border-t border-0 border-surface-200 dark:border-dark-primary-gray"/>
