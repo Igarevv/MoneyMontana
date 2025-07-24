@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('expense_accounts', static function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->unsignedBigInteger('id')->generatedAs()->always()->primary();
             $table->string('label');
             $table->string('description')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('expense_categories')->nullOnDelete();

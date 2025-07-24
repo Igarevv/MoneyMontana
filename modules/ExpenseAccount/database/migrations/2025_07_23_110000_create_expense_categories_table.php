@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('expense_categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->unsignedBigInteger('id')->generatedAs()->always()->primary();
             $table->json('label');
             $table->string('color')->default('#67e8f9'); // tailwind cyan 300
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
