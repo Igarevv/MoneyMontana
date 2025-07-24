@@ -14,8 +14,9 @@ use Modules\ExpenseAccount\app\Models\RelationsTraits\ExpenseCategoriesRelations
  * @property int $id
  * @property string $label
  * @property string $color
- * @property ExpenseCategoriesType $type
+ * @property int $user_id
  * @method BelongsTo expenseAccount()
+ * @method BelongsTo user()
  */
 class ExpenseCategory extends Model
 {
@@ -29,13 +30,5 @@ class ExpenseCategory extends Model
     protected $fillable = [
         'label',
         'color',
-        'type',
     ];
-
-    public function casts(): array
-    {
-        return [
-            'type' => ExpenseCategoriesType::class,
-        ];
-    }
 }

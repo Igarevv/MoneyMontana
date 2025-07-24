@@ -24,6 +24,7 @@ use Ramsey\Uuid\Uuid;
  * @property EmploymentType $employment_type
  * @property Currency $currency_code
  * @method HasMany expenseAccounts()
+ * @method HasMany expenseCategories()
  */
 class User extends Authenticatable
 {

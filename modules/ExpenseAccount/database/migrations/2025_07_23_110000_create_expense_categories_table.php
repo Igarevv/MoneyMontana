@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('expense_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->string('label');
+            $table->json('label');
             $table->string('color')->default('#67e8f9'); // tailwind cyan 300
-            $table->tinyInteger('type');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 
