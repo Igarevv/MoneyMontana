@@ -20,10 +20,11 @@ class ExpenseAccountAddRequest extends FormRequest
             'amount' => ['required', 'numeric', 'min:0.01'],
             'currency' => ['required', 'string', 'size:3'],
             'duration_type' => [
+                'nullable',
                 'required_if:type,'.ExpenseType::REPEATABLE_S.','.ExpenseType::SUBSCRIPTION_S,
                 Rule::in(DurationType::stringCases()),
             ],
-            'duration_value' => ['required_with:duration_type', 'integer', 'min:1'],
+            'duration_value' => ['nullable', 'required_with:duration_type', 'integer', 'min:1'],
             'category' => ['nullable', Rule::exists('expense_categories', 'id')],
         ];
     }

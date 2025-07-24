@@ -23,8 +23,12 @@ enum ExpenseType: int
         return [self::DISPOSABLE_S, self::SUBSCRIPTION_S, self::REPEATABLE_S];
     }
 
-    public static function fromString(string $type): ExpenseType
+    public static function fromString(?string $type): ?ExpenseType
     {
+        if (! $type) {
+            return null;
+        }
+
         return match (true) {
             $type === self::DISPOSABLE_S => self::DISPOSABLE,
             $type === self::SUBSCRIPTION_S => self::SUBSCRIPTION,

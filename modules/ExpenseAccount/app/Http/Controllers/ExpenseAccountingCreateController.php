@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace Modules\ExpenseAccount\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\ExpenseAccount\app\Http\RequestObjects\AddExpenseAccountRO;
 use Modules\ExpenseAccount\app\Http\Requests\ExpenseAccountAddRequest;
 
 class ExpenseAccountingCreateController extends Controller
 {
-    public function addNewExpense(ExpenseAccountAddRequest $request) {}
+    public function addNewExpense(ExpenseAccountAddRequest $request)
+    {
+        $expenseData = AddExpenseAccountRO::fromRequest($request);
+
+        dd($expenseDatal);
+    }
 }

@@ -35,8 +35,12 @@ enum DurationType: int
         ];
     }
 
-    public static function fromString(string $type): DurationType
+    public static function fromString(?string $type): ?DurationType
     {
+        if (is_null($type)) {
+            return null;
+        }
+
         return match (true) {
             $type === self::DAYS_S => self::DAYS,
             $type === self::WEEKS_S => self::WEEKS,
