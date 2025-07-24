@@ -2,11 +2,12 @@
 import {computed, ref} from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import DefaultSelectLocalization from "@/Shared/Localization/DefaultSelectLocalization.vue";
-import { useLocaleChange } from "@/composables/useLocaleChange";
-import { useI18n } from "vue-i18n";
+import {useLocaleChange} from "@/composables/useLocaleChange";
+import {useI18n} from "vue-i18n";
 import DefaultToggleDark from "@/Shared/DarkMode/DefaultToggleDark.vue";
 import Button from "primevue/button";
 import Select from 'primevue/select';
+import {useAllCountriesInfo} from "@/composables/useAllCountriesInfo";
 
 export interface Country {
   countryCode: string;
@@ -23,8 +24,8 @@ export interface EmploymentType {
   value: string;
 }
 
-const { t, tm } = useI18n();
-const { currentLocale } = useLocaleChange();
+const {t, tm} = useI18n();
+const {currentLocale} = useLocaleChange();
 
 const props = defineProps<{
   nextStep: Function;
@@ -35,7 +36,10 @@ const emit = defineEmits<{
   (e: 'register', value: { country: string; currency: string, employmentType: string }): void;
 }>();
 
-const employmentOptions = tm('registration.setup_preferences.employment_type') as Array<{ label: string, value: string }>
+const employmentOptions = tm('registration.setup_preferences.employment_type') as Array<{
+  label: string,
+  value: string
+}>
 
 const selectedCurrency = ref<Country | null>(null);
 
@@ -52,24 +56,15 @@ const isCountryInvalid = computed(() => countryTouched.value && !selectedCountry
 const isCurrencyInvalid = computed(() => currencyTouched.value && !selectedCurrency.value);
 
 const filteredCountries = ref<Country[]>([]);
-let allCountries: Country[] = [];
 
-async function loadCountries() {
-  if (allCountries.length > 0) return;
-
-  const data = await import('@/Meta/countries.json');
-  allCountries = data.default.country.map((item: any) => ({
-    ...item,
-    label: `${item.countryName} (${item.currencyCode})`
-  }));
-}
+const {countries, loadCountries} = useAllCountriesInfo();
 
 async function searchCountry(event: { query: string }) {
   await loadCountries();
 
   const query = event.query.toLowerCase();
 
-  filteredCountries.value = allCountries.filter(c =>
+  filteredCountries.value = countries.value.filter(c =>
       c.countryName.toLowerCase().includes(query) ||
       c.currencyCode.toLowerCase().includes(query) ||
       c.capital.toLowerCase().includes(query)
@@ -136,7 +131,7 @@ function onCountryChange(country: Country | null) {
           {{ t('registration.setup_preferences.language_label') }}
         </label>
         <div class="flex flex-row items-center gap-3">
-          <default-select-localization />
+          <default-select-localization/>
           <i class="pi pi-check" :class="currentLocale !== null ? 'text-green-500' : 'text-gray-800'"></i>
         </div>
       </div>
@@ -156,7 +151,7 @@ function onCountryChange(country: Country | null) {
               dropdown
               @blur="currencyTouched = true"
           >
-          <template #option="slotProps">
+            <template #option="slotProps">
               <div class="flex flex-col">
                 <span class="font-semibold">{{ slotProps.option.currencyCode }}</span>
                 <small class="text-gray-500">
