@@ -34,7 +34,7 @@
           v-if="item.children && item.isOpen"
           class="list-none py-0 pl-4 pr-0 m-0 overflow-hidden"
       >
-        <SidebarMenuItem
+        <SidebarMenuItems
             v-for="(child, index) in item.children"
             :key="index"
             :item="child"

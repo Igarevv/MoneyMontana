@@ -14,6 +14,6 @@ class ExpenseAccountingCreateController extends Controller
     {
         $expenseData = AddExpenseAccountRO::fromRequest($request);
 
-        dd($expenseDatal);
+        dd($expenseData);
     }
 }

@@ -1,5 +1,8 @@
 {
   "expense_accounting": {
-    "title": "Учет расходов"
+    "title": "Expense Accounting",
+    "all_expenses": {
+      "title": "All Expenses"
+    }
   }
 }

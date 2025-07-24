@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import PanelLayout from "@/Layouts/PanelLayout.vue";
+import Stats from "@Modules/ExpenseAccount/resources/views/components/Stats.vue";
+import AllExpenses from "@Modules/ExpenseAccount/resources/views/components/AllExpenses.vue";
 
 defineOptions({
   layout: PanelLayout
@@ -7,5 +9,6 @@ defineOptions({
 </script>
 
 <template>
-  <h2>content</h2>
+  <stats/>
+  <all-expenses/>
 </template>

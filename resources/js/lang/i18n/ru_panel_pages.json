@@ -1,5 +1,8 @@
 {
-  "expense_account": {
-    "title": "Expense Accounting"
+  "expense_accounting": {
+    "title": "Учет расходов",
+    "all_expenses": {
+      "title": "Все расходы"
+    }
   }
 }
