@@ -8,8 +8,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/');
 
         Route::post(
-            '/add',
-            [ExpenseAccountingCreateController::class, 'add'],
+            '/',
+            [ExpenseAccountingCreateController::class, 'addNewExpense'],
         );
     });
 });
