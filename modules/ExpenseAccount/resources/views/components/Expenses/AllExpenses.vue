@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
+import ExpenseCard from "@Modules/ExpenseAccount/resources/views/components/Expenses/ExpenseCard.vue";
+import ExpenseAddCard from "@Modules/ExpenseAccount/resources/views/components/Expenses/ExpenseAddCard.vue";
 
 const {t} = useI18n();
 </script>
@@ -15,8 +17,15 @@ const {t} = useI18n();
           </div>
         </div>
       </div>
-      <div class="flex flex-1">
-        <div class="flex-1 border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-lg h-[150px]"/>
+      <div class="flex flex-1 w-full">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 w-full">
+          <expense-card/>
+          <expense-card/>
+          <expense-card/>
+          <expense-card/>
+          <expense-card/>
+          <expense-add-card/>
+        </div>
       </div>
     </div>
   </div>
