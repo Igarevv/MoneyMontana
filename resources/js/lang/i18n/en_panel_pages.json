@@ -7,9 +7,12 @@
       "add_form": {
         "input_label": "Expense name...",
         "input_description": "Description (optional)...",
+        "amount_label": "Amount",
         "expense_disposable": {
           "label": "Disposable Expense",
-          "description": "One-time expense and will not be tracked in the balance sheet."
+          "description": "One-time expense and will not be tracked in the balance sheet.",
+          "date": "Date of Expense",
+          "date_in_future": "An expense with a future date will be considered planned. It will be taken into account when that date arrives."
         },
         "expense_subscription": {
           "label": "Subscription Expense",
