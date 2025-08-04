@@ -12,7 +12,13 @@
           "label": "Disposable Expense",
           "description": "One-time expense and will not be tracked in the balance sheet.",
           "date": "Date of Expense",
-          "date_in_future": "An expense with a future date will be considered planned. It will be taken into account when that date arrives."
+          "date_in_future": "An expense with a future date will be considered planned. It will be taken into account when that date arrives.",
+          "category": "Category (max 2)",
+          "form": {
+            "category_name": "Category name",
+            "color": "Color",
+            "create": "Create"
+          }
         },
         "expense_subscription": {
           "label": "Subscription Expense",

@@ -6,7 +6,7 @@ import {onMounted, ref} from "vue";
 import {usePreferences} from "@/composables/usePreferences";
 import Select from "primevue/select";
 import DatePicker from "primevue/datepicker";
-import CategoriesTags from "@/Shared/Default/CategoriesTags.vue";
+import CategoriesTags from "@Modules/ExpenseAccount/resources/views/shared/Categories/CategoriesTags.vue";
 
 const {loadCountries, currencies} = useAllCountriesInfo();
 
@@ -23,49 +23,6 @@ const isFutureDate = (date: Date | null) => {
 
   return date.getTime() > today.getTime();
 }
-
-const categories = [
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-  {
-    id: 1,
-    label: 'Bla bla bla'
-  },
-];
 
 onMounted(() => {
   loadCountries();
@@ -95,7 +52,10 @@ onMounted(() => {
         }}</span>
     </div>
 
-    <categories-tags :categories="categories"/>
+    <div class="flex gap-4 flex-col">
+      <span>{{ $t('panel.expense_accounting.all_expenses.add_form.expense_disposable.category') }}</span>
+      <categories-tags/>
+    </div>
   </div>
 </template>
 

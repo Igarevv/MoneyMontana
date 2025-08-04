@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Drawer from "primevue/drawer";
-import {computed, defineAsyncComponent, ref} from "vue";
+import {computed, defineAsyncComponent, provide, ref} from "vue";
 import ExpenseTypeSelector, {
   ExpenseType
 } from "@Modules/ExpenseAccount/resources/views/components/Expenses/Add/ExpenseTypeSelector.vue";
@@ -9,8 +9,11 @@ import TabList from 'primevue/tablist';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import axios from "axios";
+import {TCategoriesTags} from "@/Shared/Default/CategoriesTags.vue";
 
 const visibleRight = ref(false);
+
+const categories = ref<TCategoriesTags[]>([]);
 
 const DisposablePanel = defineAsyncComponent(() => import('./DisposablePanel.vue'));
 
@@ -35,10 +38,18 @@ const tabIndex = computed(() => {
   }
 })
 
-function openDrawerRight() {
-  axios.get('/api/montana/expense-categories').then((response) => {
-    console.log(response)
-  })
+provide('categories', categories);
+
+async function openDrawerRight() {
+  visibleRight.value = true;
+
+  await axios.get('/api/montana/expense-categories')
+      .then((response) => {
+        categories.value = response.data.data.attributes;
+      })
+      .catch((error) => {
+
+      })
 }
 </script>
 
