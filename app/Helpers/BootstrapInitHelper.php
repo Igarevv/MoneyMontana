@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -63,19 +62,23 @@ final readonly class BootstrapInitHelper
 
     protected function renderNotFoundJson(): void
     {
-        $this->exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+        /*$this->exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
             if ($request->is('api/**') && $response->getStatusCode() === 404) {
                 return response()->json(['message' => 'Resource not found'], 404);
             }
-        });
+
+            throw $exception;
+        });*/
     }
 
     protected function renderUnauthenticatedJson(): void
     {
-        $this->exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+        /*$this->exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
             if ($request->is('api/**') && $exception instanceof AuthenticationException) {
                 return response()->json(['message' => 'API Unauthenticated.'], 401);
             }
-        });
+
+            throw $exception;
+        });*/
     }
 }

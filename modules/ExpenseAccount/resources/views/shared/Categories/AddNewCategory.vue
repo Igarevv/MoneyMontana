@@ -34,7 +34,7 @@ const tailwind100Colors = [
 
 const onSubmit = ({valid, values}: { valid: boolean, values: ICreateExpenseCategory }) => {
   if (valid) {
-    axios.post('/api/expense-categories', {
+    axios.post('/api/montana/expense-categories', {
       category_name: values.category_name,
       color: values.color,
     })

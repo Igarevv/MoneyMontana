@@ -12,5 +12,13 @@ Route::middleware('auth:sanctum')->group(function () {
                 'getGlobalWithUsersCategories',
             ],
         );
+
+        Route::post(
+            '/',
+            [
+                ExpenseCategoriesController::class,
+                'addCategory',
+            ],
+        );
     });
 });
