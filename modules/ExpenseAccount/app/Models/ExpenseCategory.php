@@ -12,7 +12,7 @@ use Modules\ExpenseAccount\app\Models\RelationsTraits\ExpenseCategoriesRelations
 
 /**
  * @property int $id
- * @property array $label
+ * @property array|string $label
  * @property string $color
  * @property int $user_id
  * @method BelongsTo expenseAccount()
@@ -30,6 +30,7 @@ class ExpenseCategory extends Model
     protected $fillable = [
         'label',
         'color',
+        'user_id',
     ];
 
     public function casts(): array
@@ -39,10 +40,10 @@ class ExpenseCategory extends Model
         ];
     }
 
-    public function toLocale(): ?string
+    public function labelByLocale(): string|array|null
     {
         if ($this->user_id) {
-            return $this->label['default'] ?? null;
+            return $this->label ?? null;
         }
 
         return $this->label[app()->getLocale()];

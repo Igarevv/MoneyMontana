@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->api([
+            SetLocaleMiddleware::class,
             EnsureFrontendRequestsAreStateful::class,
         ]);
     })

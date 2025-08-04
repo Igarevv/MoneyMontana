@@ -26,7 +26,7 @@ class ExpenseCategoriesService
             ->transform(function (ExpenseCategory $category) use ($user) {
                 return [
                     'id' => $category->id,
-                    'label' => $category->label[$user->locale],
+                    'label' => $category->labelByLocale(),
                     'color' => $category->color,
                     'is_global' => is_null($category->user_id),
                 ];
@@ -52,7 +52,7 @@ class ExpenseCategoriesService
                 'user_id' => $user->id,
             ]);
         } catch (Throwable $exception) {
-            throw new FailedToCreateExpenseCategoryError();
+            throw new FailedToCreateExpenseCategoryError($exception);
         }
     }
 }
