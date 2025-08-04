@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Auth\Services;
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\Auth\Exceptions\LoginFailedException;
@@ -36,7 +35,7 @@ class AuthUserService
                 'preferred_theme' => $registerRO->theme,
                 'locale' => $registerRO->locale,
                 'currency_code' => $registerRO->currency,
-                'employment_type' => $registerRO->employment_type->value
+                'employment_type' => $registerRO->employment_type->value,
             ]);
         });
     }
