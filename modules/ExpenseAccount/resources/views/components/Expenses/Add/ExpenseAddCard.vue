@@ -8,6 +8,7 @@ import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
+import axios from "axios";
 
 const visibleRight = ref(false);
 
@@ -33,11 +34,17 @@ const tabIndex = computed(() => {
       return 2
   }
 })
+
+function openDrawerRight() {
+  axios.get('/api/montana/expense-categories').then((response) => {
+    console.log(response)
+  })
+}
 </script>
 
 <template>
   <div
-      @click="visibleRight = true"
+      @click="openDrawerRight"
       class="flex items-center justify-center bg-white dark:bg-surface-900 border border-dashed border-gray-300 dark:border-dark-primary-gray hover:bg-primary-yellow/5 cursor-pointer transition-all duration-200 rounded-2xl p-8 min-h-[150px]"
   >
     <div
