@@ -7,6 +7,7 @@ import InputText from "primevue/inputtext";
 import RadioButtonGroup from "primevue/radiobuttongroup";
 import RadioButton from "primevue/radiobutton"
 import axios from "axios";
+import Message from "primevue/message";
 
 export type ICreateExpenseCategory = {
   category_name: string
@@ -18,10 +19,12 @@ const initialValues = reactive({
   color: '',
 });
 
+const emit = defineEmits(['newCategory']);
+
 const resolver = yupResolver(
     yup.object({
       category_name: yup.string().required(),
-      color: yup.string(),
+      color: yup.string().required(),
     })
 );
 
@@ -39,9 +42,12 @@ const onSubmit = ({valid, values}: { valid: boolean, values: ICreateExpenseCateg
       color: values.color,
     })
         .then((response) => {
-          console.log(response)
+          if (response.data?.data?.attributes?.id) {
+            emit('newCategory', response.data.data.attributes);
+          }
         })
         .catch((error) => {
+          emit('newCategory', null)
         })
   }
 }
@@ -88,6 +94,16 @@ const onSubmit = ({valid, values}: { valid: boolean, values: ICreateExpenseCateg
             />
           </label>
         </RadioButtonGroup>
+        <message
+            v-if="$form.color?.invalid"
+            size="small"
+            severity="error"
+            :variant="'simple'"
+            class="text-xs"
+        >{{
+            $form.color.error.message
+          }}
+        </message>
       </div>
       <button
           type="submit"

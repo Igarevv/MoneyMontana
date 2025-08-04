@@ -32,7 +32,7 @@ class ExpenseCategoriesController extends Controller
         ]);
     }
 
-    public function getGlobalWithUsersCategories(Request $request)
+    public function getGlobalWithUsersCategories(Request $request): JsonResponse
     {
         $categories = $this->expenseCategoriesService->getGlobalWithUsersCategories($request->user());
 

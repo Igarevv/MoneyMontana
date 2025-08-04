@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->group(function () {
                 ExpenseCategoriesController::class,
                 'addCategory',
             ],
-        );
+        )->withoutMiddleware(['throttle:api']);
     });
 });

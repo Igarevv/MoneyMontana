@@ -11,6 +11,6 @@ class NotUniqueExpenseCategoryException extends Exception
 {
     public function render(): JsonResponse
     {
-        return response()->json(['message' => 'Category already exists.'], 429);
+        return response()->json(['message' => 'Category already exists.'], 422);
     }
 }

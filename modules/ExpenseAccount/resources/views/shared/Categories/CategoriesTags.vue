@@ -24,6 +24,14 @@ const toggleCategoryCreate = (event) => {
   op.value.toggle(event);
 }
 
+const handleNewCategoryAdded = (category?: TCategoriesTags) => {
+  op.value.hide();
+
+  if (category) {
+    categories.value.push(category);
+  }
+}
+
 function toggleTag(tag: TCategoriesTags) {
   const exists = selectedCategories.value.find(t => t.id === tag.id);
 
@@ -71,7 +79,7 @@ function toggleTag(tag: TCategoriesTags) {
     />
   </div>
   <Popover ref="op">
-    <AddNewCategory ref="categoryPopoverRef"/>
+    <AddNewCategory ref="categoryPopoverRef" @new-category="handleNewCategoryAdded"/>
   </Popover>
 </template>
 
