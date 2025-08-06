@@ -2,8 +2,14 @@
 
 namespace Modules\ExpenseAccount\Providers;
 
+use App\CommandBus\CommandBus;
+use App\CommandBus\QueryBus;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\AddExpenseCategoryCommand;
+use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\ExpenseCategoryAddHandler;
+use Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories\GetExpenseCategoriesHandler;
+use Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories\GetExpenseCategoriesQuery;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -36,6 +42,18 @@ class ExpenseAccountServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $commandBus = $this->app->get(CommandBus::class);
+
+        $queryBus = $this->app->get(QueryBus::class);
+
+        $commandBus->register([
+            AddExpenseCategoryCommand::class => ExpenseCategoryAddHandler::class,
+        ]);
+
+        $queryBus->register([
+            GetExpenseCategoriesQuery::class => GetExpenseCategoriesHandler::class,
+        ]);
     }
 
     /**
@@ -129,7 +147,7 @@ class ExpenseAccountServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
     }
 
     /**
