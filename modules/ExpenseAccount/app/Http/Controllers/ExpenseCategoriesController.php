@@ -26,7 +26,7 @@ class ExpenseCategoriesController extends Controller
     {
         $createExpenseCategoryRo = CreateExpenseCategoryRo::fromRequest($request);
 
-        $this->commandBus->dispatch(
+        $category = $this->commandBus->dispatch(
             new AddExpenseCategoryCommand(
                 $createExpenseCategoryRo,
                 $request->user(),
@@ -35,7 +35,7 @@ class ExpenseCategoriesController extends Controller
 
         return response()->json([
             'data' => [
-                'attributes' => $createExpenseCategoryRo->originalData,
+                'attributes' => $category->toArray(),
             ],
         ]);
     }

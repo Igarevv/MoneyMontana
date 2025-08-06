@@ -7,6 +7,7 @@ namespace Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories;
 use App\CommandBus\CommandHandler;
 use Modules\ExpenseAccount\app\Exceptions\FailedToCreateExpenseCategoryError;
 use Modules\ExpenseAccount\app\Exceptions\NotUniqueExpenseCategoryException;
+use Modules\ExpenseAccount\app\Models\ExpenseCategory;
 use Modules\ExpenseAccount\Repositories\ExpenseCategories\RReadExpenseCategory;
 use Modules\ExpenseAccount\Repositories\ExpenseCategories\RWriteExpenseCategory;
 use Throwable;
@@ -18,20 +19,21 @@ class ExpenseCategoryAddHandler extends CommandHandler
         private RReadExpenseCategory $categoryReadRepo,
     ) {}
 
-    public function handle(AddExpenseCategoryCommand $command): void
+    public function handle(AddExpenseCategoryCommand $command): ExpenseCategory
     {
         $globalWithUsersCategory = $this->categoryReadRepo
             ->getPersonalWithGlobalsCategories($command->user, ['user_id', 'label'])
-            ->map(function (array $data) {
-                return mb_strtolower($data['label']);
-            });
+            ->transform(function (ExpenseCategory $expenseCategory) {
+                return mb_strtolower($expenseCategory->labelByLocale());
+            })
+            ->collect();
 
         if ($globalWithUsersCategory->contains(mb_strtolower($command->categoryRo->category_name))) {
             throw new NotUniqueExpenseCategoryException();
         }
 
         try {
-            $this->categoryWriteRepo->createPersonalCategory($command->user, $command->categoryRo);
+            return $this->categoryWriteRepo->createPersonalCategory($command->user, $command->categoryRo);
         } catch (Throwable $exception) {
             throw new FailedToCreateExpenseCategoryError($exception->getMessage());
         }
