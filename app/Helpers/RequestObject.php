@@ -6,12 +6,10 @@ namespace App\Helpers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use InvalidArgumentException;
-use ReflectionClass;
-use ReflectionProperty;
 
 abstract class RequestObject
 {
-    private array $originalData {
+    public array $originalData {
         get {
             return $this->originalData;
         }
@@ -61,7 +59,7 @@ abstract class RequestObject
     {
         [$class, $method] = $type;
 
-        if (!method_exists($class, $method)) {
+        if (! method_exists($class, $method)) {
             throw new InvalidArgumentException("Method $class::$method does not exist");
         }
 
@@ -76,11 +74,11 @@ abstract class RequestObject
 
         return match ($type) {
             'string' => (string)$value,
-            'int'    => (int)$value,
-            'float'  => (float)$value,
-            'bool'   => filter_var($value, FILTER_VALIDATE_BOOLEAN),
-            'array'  => (array)$value,
-            default  => throw new \InvalidArgumentException("Unknown basic type: $type"),
+            'int' => (int)$value,
+            'float' => (float)$value,
+            'bool' => filter_var($value, FILTER_VALIDATE_BOOLEAN),
+            'array' => (array)$value,
+            default => throw new InvalidArgumentException("Unknown basic type: $type"),
         };
     }
 
