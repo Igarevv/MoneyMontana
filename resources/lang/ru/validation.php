@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -172,9 +173,7 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'собственное сообщение',
-        ],
+        'all_numeric' => 'Все элементы поля :attribute должны быть числами.',
     ],
 
     /*

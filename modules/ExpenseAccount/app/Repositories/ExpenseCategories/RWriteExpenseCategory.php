@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\Repositories\ExpenseCategories;
+namespace Modules\ExpenseAccount\app\Repositories\ExpenseCategories;
 
 use Modules\Auth\Models\User;
 use Modules\ExpenseAccount\app\Http\RequestObjects\CreateExpenseCategoryRo;

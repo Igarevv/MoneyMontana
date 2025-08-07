@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\ExpenseAccount\app\Enums\DurationType;
 use Modules\ExpenseAccount\app\Enums\ExpenseType;
+use Modules\ExpenseAccount\Http\ExpenseCategoriesExistsRule;
 
 class ExpenseAccountAddRequest extends FormRequest
 {
@@ -25,7 +26,20 @@ class ExpenseAccountAddRequest extends FormRequest
                 Rule::in(DurationType::stringCases()),
             ],
             'duration_value' => ['nullable', 'required_with:duration_type', 'integer', 'min:1'],
-            'category' => ['nullable', Rule::exists('expense_categories', 'id')],
+            'categories' => ['nullable', 'array', new ExpenseCategoriesExistsRule()],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'label' => __('expenseaccount::base.add_expense_form.fields.label'),
+            'description' => __('expenseaccount::base.add_expense_form.fields.description'),
+            'amount' => __('expenseaccount::base.add_expense_form.fields.amount'),
+            'categories' => __('expenseaccount::base.add_expense_form.fields.category'),
+            'currency' => __('expenseaccount::base.add_expense_form.fields.currency'),
+            'duration_type' => __('expenseaccount::base.add_expense_form.fields.duration_type'),
+            'duration_value' => __('expenseaccount::base.add_expense_form.fields.duration_value'),
         ];
     }
 }

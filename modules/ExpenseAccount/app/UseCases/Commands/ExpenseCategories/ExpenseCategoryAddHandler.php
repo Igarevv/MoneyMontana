@@ -8,8 +8,8 @@ use App\CommandBus\CommandHandler;
 use Modules\ExpenseAccount\app\Exceptions\FailedToCreateExpenseCategoryError;
 use Modules\ExpenseAccount\app\Exceptions\NotUniqueExpenseCategoryException;
 use Modules\ExpenseAccount\app\Models\ExpenseCategory;
-use Modules\ExpenseAccount\Repositories\ExpenseCategories\RReadExpenseCategory;
-use Modules\ExpenseAccount\Repositories\ExpenseCategories\RWriteExpenseCategory;
+use Modules\ExpenseAccount\app\Repositories\ExpenseCategories\RReadExpenseCategory;
+use Modules\ExpenseAccount\app\Repositories\ExpenseCategories\RWriteExpenseCategory;
 use Throwable;
 
 class ExpenseCategoryAddHandler extends CommandHandler

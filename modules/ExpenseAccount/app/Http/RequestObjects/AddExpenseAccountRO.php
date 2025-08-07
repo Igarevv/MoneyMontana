@@ -20,7 +20,7 @@ class AddExpenseAccountRO extends RequestObject
             'currency' => 'string',
             'duration_type' => [DurationType::class, 'fromString'],
             'duration_value' => 'int',
-            'category' => 'int',
+            'categories' => 'array',
         ];
     }
 }

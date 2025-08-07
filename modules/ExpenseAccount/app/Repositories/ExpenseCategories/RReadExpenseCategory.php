@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\Repositories\ExpenseCategories;
+namespace Modules\ExpenseAccount\app\Repositories\ExpenseCategories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Auth\Models\User;

@@ -176,9 +176,7 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+        'all_numeric' => 'All elements in field :attribute must be numeric.',
     ],
 
     /*
