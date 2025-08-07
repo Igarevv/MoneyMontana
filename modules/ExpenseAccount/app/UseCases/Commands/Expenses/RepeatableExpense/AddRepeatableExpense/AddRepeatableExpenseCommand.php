@@ -7,6 +7,6 @@ namespace Modules\ExpenseAccount\UseCases\Commands\Expenses\RepeatableExpense\Ad
 use App\CommandBus\Command;
 
 /**
- * @link AddSubscriptionExpenseHandler
+ * @link AddRepeatableExpenseHandler
  */
 class AddRepeatableExpenseCommand extends Command {}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\ExpenseAccount\Http;
+namespace Modules\ExpenseAccount\Http\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

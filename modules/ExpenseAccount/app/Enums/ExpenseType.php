@@ -3,6 +3,9 @@
 namespace Modules\ExpenseAccount\Enums;
 
 use InvalidArgumentException;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense\AddOneTimeExpenseCommand;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\RepeatableExpense\AddRepeatableExpense\AddRepeatableExpenseCommand;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\SubscriptionExpense\AddSubscriptionExpense\AddSubscriptionExpenseCommand;
 
 enum ExpenseType: int
 {
@@ -43,6 +46,15 @@ enum ExpenseType: int
             self::DISPOSABLE => __('expense_account.type.disposable'),
             self::SUBSCRIPTION => __('expense_account.type.subscription'),
             self::REPEATABLE => __('expense_account.type.repeatable'),
+        };
+    }
+
+    public function commandInstance(): string
+    {
+        return match ($this) {
+            self::DISPOSABLE => AddOneTimeExpenseCommand::class,
+            self::SUBSCRIPTION => AddSubscriptionExpenseCommand::class,
+            self::REPEATABLE => AddRepeatableExpenseCommand::class,
         };
     }
 }

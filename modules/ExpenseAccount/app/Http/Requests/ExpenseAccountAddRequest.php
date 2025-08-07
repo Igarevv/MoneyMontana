@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\ExpenseAccount\Enums\DurationType;
 use Modules\ExpenseAccount\Enums\ExpenseType;
-use Modules\ExpenseAccount\Http\ExpenseCategoriesExistsRule;
+use Modules\ExpenseAccount\Http\Rules\ExpenseCategoriesExistsRule;
 
 class ExpenseAccountAddRequest extends FormRequest
 {
