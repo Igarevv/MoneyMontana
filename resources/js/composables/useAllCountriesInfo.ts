@@ -32,7 +32,7 @@ export function useAllCountriesInfo() {
         countries.value = allCountries;
 
         currencies.value = getUniqueCurrencies(allCountries);
-        console.log(currencies.value)
+
         loaded.value = true;
     }
 
