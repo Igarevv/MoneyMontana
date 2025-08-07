@@ -10,6 +10,7 @@ class AddOneTimeExpenseHandler extends CommandHandler
 {
     public function handle(AddOneTimeExpenseCommand $command)
     {
-        dd($command->expense);
+        if ($command->expense->created_at->isBefore(now())) {
+        }
     }
 }

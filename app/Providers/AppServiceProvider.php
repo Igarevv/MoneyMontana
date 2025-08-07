@@ -6,6 +6,7 @@ use App\CommandBus\CommandBus;
 use App\CommandBus\IlluminateCommandBus;
 use App\CommandBus\IlluminateQueryBus;
 use App\CommandBus\QueryBus;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,6 +42,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerCommandSchedules();
+    }
+
+    protected function registerCommandSchedules(): void
+    {
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+
+            $allowedCurrencies = config('currency.allowed');
+
+            foreach ($allowedCurrencies as $currency) {
+                $schedule
+                    ->command("app:exchange-rates-update $currency")
+                    ->daily()
+                    ->name("exchange-rates-update-$currency")
+                    ->withoutOverlapping();
+            }
+
+            $schedule->command('inspire')->hourly();
+        });
     }
 }

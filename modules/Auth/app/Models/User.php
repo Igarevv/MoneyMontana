@@ -2,6 +2,7 @@
 
 namespace Modules\Auth\Models;
 
+use App\Casts\Money;
 use App\DefaultCasts\CurrencyCast;
 use Brick\Money\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ use Ramsey\Uuid\Uuid;
  * @property string $country_code
  * @property string|null $preferred_theme
  * @property string|null $locale
+ * @property \Brick\Money\Money $balance
  * @property EmploymentType $employment_type
  * @property Currency $currency_code
  * @method HasMany expenseAccounts()
@@ -35,6 +37,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'email',
+        'balance',
         'password',
         'country_code',
         'preferred_theme',
@@ -47,12 +50,18 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function subtractFromBalance(\Brick\Money\Money $money)
+    {
+        dd($this->balance->minus($money);
+    }
+
     protected function casts(): array
     {
         return [
             'password' => 'hashed',
             'currency' => CurrencyCast::class,
             'employment_type' => EmploymentType::class,
+            'balance' => Money::class,
         ];
     }
 

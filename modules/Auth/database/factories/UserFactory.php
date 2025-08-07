@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'preferred_theme' => $this->faker->randomElement(['light', 'dark']),
             'locale' => $this->faker->randomElement(['ru', 'en']),
             'currency_code' => $this->faker->currencyCode(),
+            'balance' => $this->faker->randomNumber(5),
             'password' => Hash::make('password123456'),
             'employment_type' => $this->faker->randomElement(EmploymentType::cases()),
         ];

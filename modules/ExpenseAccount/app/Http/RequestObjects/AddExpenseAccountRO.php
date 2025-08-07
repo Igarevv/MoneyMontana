@@ -7,6 +7,7 @@ namespace Modules\ExpenseAccount\Http\RequestObjects;
 use App\Helpers\RequestObject;
 use Brick\Money\Currency;
 use Brick\Money\Money;
+use Carbon\Carbon;
 use Modules\ExpenseAccount\Enums\DurationType;
 use Modules\ExpenseAccount\Enums\ExpenseType;
 
@@ -19,6 +20,7 @@ use Modules\ExpenseAccount\Enums\ExpenseType;
  * @property DurationType|null $duration_type
  * @property integer $duration_value
  * @property array $categories
+ * @property Carbon $created_at
  */
 class AddExpenseAccountRO extends RequestObject
 {
@@ -27,6 +29,7 @@ class AddExpenseAccountRO extends RequestObject
         return [
             'type' => [ExpenseType::class, 'fromString'],
             'label' => 'string',
+            'created_at' => [Carbon::class, 'parse'],
             'description' => 'string',
             'amount' => [Money::class, 'of', ['currency']],
             'currency' => [Currency::class, 'of'],

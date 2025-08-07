@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
+            $table->bigInteger('balance')->default(0);
             $table->char('locale', 2)->default(config('app.locale', 'en'));
             $table->char('country_code', 2);
             $table->char('currency_code', 3);

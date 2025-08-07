@@ -20,6 +20,7 @@ class ExpenseAccountAddRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'currency' => ['required', 'string', 'size:3'],
+            'created_at' => ['required', 'date'],
             'duration_type' => [
                 'nullable',
                 'required_if:type,'.ExpenseType::REPEATABLE_S.','.ExpenseType::SUBSCRIPTION_S,
