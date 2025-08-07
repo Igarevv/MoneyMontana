@@ -15,14 +15,7 @@ class RReadExpenseCategory
         return ExpenseCategory::query()->whereNull('user_id')->get($cols);
     }
 
-    public function getUserPersonalCategories(User|int $user, array $cols = ['*']): Collection
-    {
-        if (is_int($user)) {
-            return ExpenseCategory::query()->where('user_id', $user)->get($cols);
-        }
-
-        return $user->expenseCategories()->get($cols);
-    }
+    public function getUserPersonalCategories(User|int $user, array $cols = ['*']): Collection {}
 
     public function getPersonalWithGlobalsCategories(User|int $user, array $cols = ['*']): Collection
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense;
 
 use App\CommandBus\Command;
+use Modules\Auth\Models\User;
 use Modules\ExpenseAccount\Http\RequestObjects\AddExpenseAccountRO;
 
 /**
@@ -13,6 +14,7 @@ use Modules\ExpenseAccount\Http\RequestObjects\AddExpenseAccountRO;
 class AddOneTimeExpenseCommand extends Command
 {
     public function __construct(
-        public readonly AddExpenseAccountRO $accountRO,
+        public readonly User $user,
+        public readonly AddExpenseAccountRO $expense,
     ) {}
 }

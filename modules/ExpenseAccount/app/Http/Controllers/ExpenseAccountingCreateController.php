@@ -20,7 +20,7 @@ class ExpenseAccountingCreateController extends Controller
         $expenseData = AddExpenseAccountRO::fromRequest($request);
 
         $this->commandBus->dispatch(
-            new ($expenseData->type->commandInstance())($expenseData),
+            new ($expenseData->type->commandInstance())($request->user(), $expenseData),
         );
     }
 }

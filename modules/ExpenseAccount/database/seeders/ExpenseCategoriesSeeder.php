@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\ExpenseAccount\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
 
 class ExpenseCategoriesSeeder extends Seeder
 {

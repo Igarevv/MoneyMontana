@@ -10,6 +10,7 @@ use Brick\Money\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\ExpenseAccount\Enums\DurationType;
 use Modules\ExpenseAccount\Models\RelationsTraits\ExpenseAccountRelations;
 
@@ -24,6 +25,7 @@ use Modules\ExpenseAccount\Models\RelationsTraits\ExpenseAccountRelations;
  * @property int|null $duration_value
  * @property int $user_id
  * @method BelongsTo user()
+ * @method BelongsToMany expenseCategories()
  */
 class ExpenseAccount extends Model
 {

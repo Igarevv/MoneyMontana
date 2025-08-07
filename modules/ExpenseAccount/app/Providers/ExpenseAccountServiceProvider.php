@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\AddExpenseCategoryCommand;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\ExpenseCategoryAddHandler;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense\AddOneTimeExpenseCommand;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense\AddOneTimeExpenseHandler;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\RepeatableExpense\AddRepeatableExpense\AddRepeatableExpenseCommand;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\RepeatableExpense\AddRepeatableExpense\AddRepeatableExpenseHandler;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\SubscriptionExpense\AddSubscriptionExpense\AddSubscriptionExpenseCommand;
+use Modules\ExpenseAccount\UseCases\Commands\Expenses\SubscriptionExpense\AddSubscriptionExpense\AddSubscriptionExpenseHandler;
 use Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories\GetExpenseCategoriesHandler;
 use Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories\GetExpenseCategoriesQuery;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -49,6 +55,9 @@ class ExpenseAccountServiceProvider extends ServiceProvider
 
         $commandBus->register([
             AddExpenseCategoryCommand::class => ExpenseCategoryAddHandler::class,
+            AddOneTimeExpenseCommand::class => AddOneTimeExpenseHandler::class,
+            AddSubscriptionExpenseCommand::class => AddSubscriptionExpenseHandler::class,
+            AddRepeatableExpenseCommand::class => AddRepeatableExpenseHandler::class,
         ]);
 
         $queryBus->register([

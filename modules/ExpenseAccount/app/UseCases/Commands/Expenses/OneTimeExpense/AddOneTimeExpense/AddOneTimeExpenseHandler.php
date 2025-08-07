@@ -6,4 +6,10 @@ namespace Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOn
 
 use App\CommandBus\CommandHandler;
 
-class AddOneTimeExpenseHandler extends CommandHandler {}
+class AddOneTimeExpenseHandler extends CommandHandler
+{
+    public function handle(AddOneTimeExpenseCommand $command)
+    {
+        dd($command->expense);
+    }
+}
