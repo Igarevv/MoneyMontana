@@ -29,7 +29,7 @@ abstract class RequestObject
             $value = $data[$key] ?? null;
 
             if (is_array($type)) {
-                $castedValue = self::processClassCasting($type, $value);
+                $castedValue = self::processClassCasting($type, $value, $data);
             } elseif (is_string($type)) {
                 [$baseType, $default] = self::wannaDefaultValue($type);
 
@@ -55,15 +55,23 @@ abstract class RequestObject
         return [$baseType, $default];
     }
 
-    private static function processClassCasting(array $type, mixed $value): mixed
+    private static function processClassCasting(array $type, mixed $value, array $allData): mixed
     {
         [$class, $method] = $type;
+
+        $args = [$value];
+
+        if (isset($type[2]) && is_array($type[2])) {
+            foreach ($type[2] as $argName) {
+                $args[] = $allData[$argName] ?? null;
+            }
+        }
 
         if (! method_exists($class, $method)) {
             throw new InvalidArgumentException("Method $class::$method does not exist");
         }
 
-        return $class::$method($value);
+        return $class::$method(...$args);
     }
 
     private static function processBasicCasting(mixed $value, string $type, mixed $default = null): mixed
