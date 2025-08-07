@@ -42,11 +42,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerCommandSchedules();
-    }
-
-    protected function registerCommandSchedules(): void
-    {
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
 
@@ -55,12 +50,10 @@ class AppServiceProvider extends ServiceProvider
             foreach ($allowedCurrencies as $currency) {
                 $schedule
                     ->command("app:exchange-rates-update $currency")
-                    ->daily()
+                    ->dailyAt('00:00')
                     ->name("exchange-rates-update-$currency")
                     ->withoutOverlapping();
             }
-
-            $schedule->command('inspire')->hourly();
         });
     }
 }

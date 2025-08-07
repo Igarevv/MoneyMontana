@@ -21,7 +21,8 @@ WORKDIR /app
 
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 COPY --from=builder /usr/local/etc/php/ /usr/local/etc/php/
-COPY --from=builder / ./
+
+COPY --from=builder /app /app
 
 COPY .docker/development/php/crontab /etc/supercronic/laravel-cron
 

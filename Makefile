@@ -7,6 +7,9 @@ build-dev-mode: ## Build and run application in development mode
 start-dev-mode: ## Start application in development mode
 	docker compose -f docker-compose.dev.yaml up -d
 
+start-build-dev-mode: ## Build and start application in development mode
+	docker compose -f docker-compose.dev.yaml up -d --build
+
 down-dev-mode: ## Stop application in development mode
 	docker compose -f docker-compose.dev.yaml down -v
 
