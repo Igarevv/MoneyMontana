@@ -4,7 +4,7 @@ namespace Modules\ExpenseAccount\Http;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
 
 class ExpenseCategoriesExistsRule implements ValidationRule
 {

@@ -6,7 +6,7 @@ namespace Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories;
 
 use App\CommandBus\Command;
 use Modules\Auth\Models\User;
-use Modules\ExpenseAccount\app\Http\RequestObjects\CreateExpenseCategoryRo;
+use Modules\ExpenseAccount\Http\RequestObjects\CreateExpenseCategoryRo;
 
 /**
  * @link GetExpenseCategoriesHandler

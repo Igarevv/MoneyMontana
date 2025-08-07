@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\ExpenseAccount\app\Enums;
+namespace Modules\ExpenseAccount\Enums;
 
 use InvalidArgumentException;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\RequestObjects;
+namespace Modules\ExpenseAccount\Http\RequestObjects;
 
 use App\Helpers\RequestObject;
-use Modules\ExpenseAccount\app\Enums\DurationType;
-use Modules\ExpenseAccount\app\Enums\ExpenseType;
+use Modules\ExpenseAccount\Enums\DurationType;
+use Modules\ExpenseAccount\Enums\ExpenseType;
 
 class AddExpenseAccountRO extends RequestObject
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Repositories\ExpenseCategories;
+namespace Modules\ExpenseAccount\Repositories\ExpenseCategories;
 
 use Modules\Auth\Models\User;
-use Modules\ExpenseAccount\app\Http\RequestObjects\CreateExpenseCategoryRo;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Http\RequestObjects\CreateExpenseCategoryRo;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
 
 class RWriteExpenseCategory
 {

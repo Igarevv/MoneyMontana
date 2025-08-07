@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\Controllers;
+namespace Modules\ExpenseAccount\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;

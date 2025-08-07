@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Models;
+namespace Modules\ExpenseAccount\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Modules\ExpenseAccount\app\Enums\ExpenseCategoriesType;
-use Modules\ExpenseAccount\app\Models\RelationsTraits\ExpenseCategoriesRelations;
+use Modules\ExpenseAccount\Enums\ExpenseCategoriesType;
+use Modules\ExpenseAccount\Models\RelationsTraits\ExpenseCategoriesRelations;
 
 /**
  * @property int $id

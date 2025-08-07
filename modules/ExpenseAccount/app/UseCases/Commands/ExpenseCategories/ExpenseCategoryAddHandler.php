@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories;
 
 use App\CommandBus\CommandHandler;
-use Modules\ExpenseAccount\app\Exceptions\FailedToCreateExpenseCategoryError;
-use Modules\ExpenseAccount\app\Exceptions\NotUniqueExpenseCategoryException;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
-use Modules\ExpenseAccount\app\Repositories\ExpenseCategories\RReadExpenseCategory;
-use Modules\ExpenseAccount\app\Repositories\ExpenseCategories\RWriteExpenseCategory;
+use Modules\ExpenseAccount\Exceptions\FailedToCreateExpenseCategoryError;
+use Modules\ExpenseAccount\Exceptions\NotUniqueExpenseCategoryException;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Repositories\ExpenseCategories\RReadExpenseCategory;
+use Modules\ExpenseAccount\Repositories\ExpenseCategories\RWriteExpenseCategory;
 use Throwable;
 
 class ExpenseCategoryAddHandler extends CommandHandler

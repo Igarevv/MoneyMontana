@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\Controllers;
+namespace Modules\ExpenseAccount\Http\Controllers;
 
 use App\CommandBus\CommandBus;
 use App\CommandBus\QueryBus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\ExpenseAccount\app\Http\RequestObjects\CreateExpenseCategoryRo;
+use Modules\ExpenseAccount\Http\RequestObjects\CreateExpenseCategoryRo;
 use Modules\ExpenseAccount\Http\Requests\CreateExpenseCategoryRequest;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\AddExpenseCategoryCommand;
 use Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories\GetExpenseCategoriesQuery;

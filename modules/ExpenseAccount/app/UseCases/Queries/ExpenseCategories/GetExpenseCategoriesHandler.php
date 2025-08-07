@@ -6,8 +6,8 @@ namespace Modules\ExpenseAccount\UseCases\Queries\ExpenseCategories;
 
 use App\CommandBus\QueryHandler;
 use Illuminate\Database\Eloquent\Collection;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
-use Modules\ExpenseAccount\app\Repositories\ExpenseCategories\RReadExpenseCategory;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Repositories\ExpenseCategories\RReadExpenseCategory;
 
 class GetExpenseCategoriesHandler extends QueryHandler
 {

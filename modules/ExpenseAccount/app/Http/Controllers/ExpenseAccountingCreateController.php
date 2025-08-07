@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\Controllers;
+namespace Modules\ExpenseAccount\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\ExpenseAccount\app\Http\RequestObjects\AddExpenseAccountRO;
-use Modules\ExpenseAccount\app\Http\Requests\ExpenseAccountAddRequest;
+use Modules\ExpenseAccount\Http\RequestObjects\AddExpenseAccountRO;
+use Modules\ExpenseAccount\Http\Requests\ExpenseAccountAddRequest;
 
 class ExpenseAccountingCreateController extends Controller
 {

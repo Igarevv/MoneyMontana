@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\Requests;
+namespace Modules\ExpenseAccount\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Modules\ExpenseAccount\app\Enums\DurationType;
-use Modules\ExpenseAccount\app\Enums\ExpenseType;
+use Modules\ExpenseAccount\Enums\DurationType;
+use Modules\ExpenseAccount\Enums\ExpenseType;
 use Modules\ExpenseAccount\Http\ExpenseCategoriesExistsRule;
 
 class ExpenseAccountAddRequest extends FormRequest

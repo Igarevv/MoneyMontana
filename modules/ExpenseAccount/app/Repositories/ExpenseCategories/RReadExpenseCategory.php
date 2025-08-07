@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Repositories\ExpenseCategories;
+namespace Modules\ExpenseAccount\Repositories\ExpenseCategories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Auth\Models\User;
-use Modules\ExpenseAccount\app\Models\ExpenseCategory;
+use Modules\ExpenseAccount\Models\ExpenseCategory;
 
 class RReadExpenseCategory
 {

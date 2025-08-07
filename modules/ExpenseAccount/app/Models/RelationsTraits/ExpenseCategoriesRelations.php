@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Models\RelationsTraits;
+namespace Modules\ExpenseAccount\Models\RelationsTraits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Auth\Models\User;
-use Modules\ExpenseAccount\app\Models\ExpenseAccount;
+use Modules\ExpenseAccount\Models\ExpenseAccount;
 
 trait ExpenseCategoriesRelations
 {

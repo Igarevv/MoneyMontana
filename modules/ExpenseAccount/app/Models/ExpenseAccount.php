@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Models;
+namespace Modules\ExpenseAccount\Models;
 
 use App\Casts\Money;
 use App\DefaultCasts\CurrencyCast;
@@ -10,8 +10,8 @@ use Brick\Money\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Modules\ExpenseAccount\app\Enums\DurationType;
-use Modules\ExpenseAccount\app\Models\RelationsTraits\ExpenseAccountRelations;
+use Modules\ExpenseAccount\Enums\DurationType;
+use Modules\ExpenseAccount\Models\RelationsTraits\ExpenseAccountRelations;
 
 /**
  * @property int $id

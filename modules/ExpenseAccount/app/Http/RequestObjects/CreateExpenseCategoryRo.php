@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\ExpenseAccount\app\Http\RequestObjects;
+namespace Modules\ExpenseAccount\Http\RequestObjects;
 
 use App\Helpers\RequestObject;
 

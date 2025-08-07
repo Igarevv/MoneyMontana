@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\ExpenseAccount\app\Http\Controllers\ExpenseAccountingCreateController;
-use Modules\ExpenseAccount\app\Http\Controllers\ExpenseAccountingRetrieveController;
+use Modules\ExpenseAccount\Http\Controllers\ExpenseAccountingCreateController;
+use Modules\ExpenseAccount\Http\Controllers\ExpenseAccountingRetrieveController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('expense-accounting')->group(function () {
