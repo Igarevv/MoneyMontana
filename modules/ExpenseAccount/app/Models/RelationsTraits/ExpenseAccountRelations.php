@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\ExpenseAccount\Models\RelationsTraits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Auth\Models\User;
 use Modules\ExpenseAccount\Models\ExpenseCategory;
 
@@ -15,8 +16,8 @@ trait ExpenseAccountRelations
         return $this->belongsTo(User::class);
     }
 
-    public function category(): BelongsTo
+    public function expenseCategories(): BelongsToMany
     {
-        return $this->belongsTo(ExpenseCategory::class);
+        return $this->belongsToMany(ExpenseCategory::class, 'expense_accounts_categories');
     }
 }

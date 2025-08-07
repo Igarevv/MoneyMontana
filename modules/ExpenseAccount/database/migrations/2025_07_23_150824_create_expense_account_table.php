@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('id')->generatedAs()->always()->primary();
             $table->string('label');
             $table->string('description')->nullable();
-            $table->foreignId('category_id')->nullable()->constrained('expense_categories')->nullOnDelete();
             $table->unsignedBigInteger('amount')->default(0);
             $table->char('currency', 3)->default('USD');
             $table->tinyInteger('duration_type')->nullable();
