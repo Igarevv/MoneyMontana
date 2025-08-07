@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {inject, Ref, ref} from "vue"
+import {inject, Ref, ref, watch} from "vue"
 import Button from "primevue/button"
 import AddNewCategory from "@Modules/ExpenseAccount/resources/views/shared/Categories/AddNewCategory.vue";
 import Popover from "primevue/popover"
@@ -11,6 +11,8 @@ export type TCategoriesTags = {
 }
 
 const op = ref();
+
+const emit = defineEmits(['selected-categories']);
 
 const categories = inject<Ref<TCategoriesTags[]>>('categories');
 
@@ -46,6 +48,9 @@ function toggleTag(tag: TCategoriesTags) {
   }
 }
 
+watch(() => selectedCategories.value, () => {
+  emit('selected-categories', selectedCategories.value.map((category) => category.id));
+}, {deep: true})
 </script>
 
 

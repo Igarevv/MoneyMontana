@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Drawer from "primevue/drawer";
-import {computed, defineAsyncComponent, provide, ref} from "vue";
+import {computed, defineAsyncComponent, provide, ref, watch} from "vue";
 import ExpenseTypeSelector, {
   ExpenseType
 } from "@Modules/ExpenseAccount/resources/views/components/Expenses/Add/ExpenseTypeSelector.vue";
@@ -9,7 +9,11 @@ import TabList from 'primevue/tablist';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import axios from "axios";
-import {TCategoriesTags} from "@/Shared/Default/CategoriesTags.vue";
+import {useForm} from "@inertiajs/vue3";
+import {TCategoriesTags} from "@Modules/ExpenseAccount/resources/views/shared/Categories/CategoriesTags.vue";
+import Message from "primevue/message";
+import Button from "primevue/button";
+import {usePreferences} from "@/composables/usePreferences";
 
 const visibleRight = ref(false);
 
@@ -25,7 +29,19 @@ function autoResize(event: Event) {
   textarea.style.height = textarea.scrollHeight + 'px';
 }
 
-const selected = ref<ExpenseType>(ExpenseType.DISPOSABLE)
+const selected = ref<ExpenseType>(ExpenseType.DISPOSABLE);
+
+const form = useForm({
+  label: '',
+  description: '',
+  created_at: new Date(),
+  duration_type: '',
+  duration_value: '',
+  amount: '',
+  currency: usePreferences().currency,
+  categories: [],
+  type: 'disposable'
+})
 
 const tabIndex = computed(() => {
   switch (selected.value) {
@@ -51,6 +67,26 @@ async function openDrawerRight() {
 
       })
 }
+
+function submit() {
+  form.post('/montana/expense-accounting', {
+    preserveScroll: true
+  })
+}
+
+watch(selected, (value) => {
+  switch (value) {
+    case ExpenseType.DISPOSABLE:
+      form.type = 'disposable'
+      break
+    case ExpenseType.SUBSCRIPTION:
+      form.type = 'subscription'
+      break
+    case ExpenseType.REPEATABLE:
+      form.type = 'repeatable'
+      break
+  }
+})
 </script>
 
 <template>
@@ -67,44 +103,68 @@ async function openDrawerRight() {
 
   <Drawer v-model:visible="visibleRight" header="" position="right" :show-close-icon="false"
           class="!w-full md:!w-[30rem] lg:!w-[50rem] rounded-s-xl">
-    <template #header>
-      <div class="relative w-full">
-        <div class="w-full m-8 !mb-0 space-y-4">
-          <textarea
-              :placeholder="$t('panel.expense_accounting.all_expenses.add_form.input_label')"
-              rows="1"
-              class="resize-none w-full placeholder-gray-500 outline-none border-none bg-transparent text-3xl font-semibold placeholder:font-normal overflow-hidden pr-12"
-              @input="autoResize"
-          />
-          <textarea
-              :placeholder="$t('panel.expense_accounting.all_expenses.add_form.input_description')"
-              rows="2"
-              class="resize-none w-full placeholder-gray-500 outline-none border-none bg-transparent text-xl placeholder:font-normal overflow-hidden pr-12"
-              @input="autoResize"
-          />
-        </div>
-        <button
-            @click="visibleRight = false"
-            class="absolute top-0 right-0 text-gray-500 hover:text-black text-xl"
-        >
-          <i class="pi pi-times"></i>
-        </button>
-      </div>
-    </template>
-    <template #default>
-      <Tabs :value="tabIndex">
-        <TabList>
-          <ExpenseTypeSelector v-model:selected="selected"/>
-        </TabList>
+    <template #container="{ closeCallback }">
+      <form @submit.prevent="submit" class="flex flex-col h-full">
+        <div class="flex flex-col h-full">
+          <div class="relative w-full">
+            <div class="w-full m-8 !mb-0 space-y-4">
+              <div class="flex flex-col gap-2">
+              <textarea
+                  v-model="form.label"
+                  :placeholder="$t('panel.expense_accounting.all_expenses.add_form.input_label')"
+                  rows="1"
+                  class="resize-none w-full placeholder-gray-500 outline-none border-none bg-transparent text-3xl font-semibold placeholder:font-normal overflow-hidden pr-12"
+                  @input="autoResize"
+              />
+                <Message time="5000" severity="error" size="small" variant="simple" v-if="form.errors.label">{{
+                    form.errors.label
+                  }}
+                </Message>
+              </div>
+              <div class="flex flex-col gap-2">
+              <textarea
+                  v-model="form.description"
+                  :placeholder="$t('panel.expense_accounting.all_expenses.add_form.input_description')"
+                  rows="2"
+                  class="resize-none w-full placeholder-gray-500 outline-none border-none bg-transparent text-xl placeholder:font-normal overflow-hidden pr-12"
+                  @input="autoResize"
+              />
+                <Message time="5000" severity="error" size="small" variant="simple" v-if="form.errors.description">{{
+                    form.errors.description
+                  }}
+                </Message>
+              </div>
+            </div>
+            <button
+                @click="visibleRight = false"
+                class="absolute top-0 right-0 text-gray-500 hover:text-black text-xl"
+            >
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
 
-        <TabPanels class="m-8 !p-0">
-          <TabPanel :value="0">
-            <disposable-panel/>
-          </TabPanel>
-          <TabPanel :value="1">Subscription content</TabPanel>
-          <TabPanel :value="2">Repeatable content</TabPanel>
-        </TabPanels>
-      </Tabs>
+          <Tabs :value="tabIndex">
+            <TabList>
+              <ExpenseTypeSelector v-model:selected="selected"/>
+            </TabList>
+
+            <TabPanels class="m-8 !p-0">
+              <TabPanel :value="0">
+                <disposable-panel :form="form"/>
+              </TabPanel>
+              <TabPanel :value="1">Subscription content</TabPanel>
+              <TabPanel :value="2">Repeatable content</TabPanel>
+            </TabPanels>
+          </Tabs>
+        </div>
+        <div class="mt-auto mb-4 me-4">
+          <div class="flex w-full justify-end">
+            <Button size="small" type="submit" :loading="form.processing" severity="contrast">
+              {{ $t('panel.expense_accounting.all_expenses.add') }}
+            </Button>
+          </div>
+        </div>
+      </form>
     </template>
   </Drawer>
 </template>
