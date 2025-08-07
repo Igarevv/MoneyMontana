@@ -62,13 +62,13 @@ abstract class RequestObject
         $args = [$value];
 
         if (isset($type[2]) && is_array($type[2])) {
-            foreach ($type[2] as $argName) {
-                $args[] = $allData[$argName] ?? null;
+            foreach ($type[2] as $subType) {
+                $args[] = $allData[$subType] ?? null;
             }
         }
 
         if (! method_exists($class, $method)) {
-            throw new InvalidArgumentException("Method $class::$method does not exist");
+            throw new InvalidArgumentException("Method $method does not exist");
         }
 
         return $class::$method(...$args);
