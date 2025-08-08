@@ -22,7 +22,6 @@ final class AddOneTimeExpenseHandler extends CommandHandler
 
     public function handle(AddOneTimeExpenseCommand $command): ExpenseAccount
     {
-        dd(DB::connection('mongodb')->command(['ping' => 1]));
         return DB::transaction(function () use ($command) {
             $now = now();
 
@@ -33,6 +32,8 @@ final class AddOneTimeExpenseHandler extends CommandHandler
 
             if ($command->expense->created_at->isBefore($now)) {
                 $this->userBalanceService->subtractFromBalance($command->expense->amount);
+
+                $this->addUserExpenseLogs->logAddingOneTimeExpense($command->expense);
 
                 return $expense;
             }

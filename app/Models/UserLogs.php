@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserLogsActionTypeEnum;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class UserLogs extends Model
 {
@@ -25,6 +25,7 @@ class UserLogs extends Model
     {
         return [
             'meta' => 'array',
+            'created_at' => 'datetime',
             'action_type' => UserLogsActionTypeEnum::class,
         ];
     }

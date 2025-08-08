@@ -24,7 +24,7 @@ class UserBalanceService
         if ($money->getCurrency()->is($this->user->currency_code)) {
             $newBalance = $this->user->balance->minus($money);
 
-            $this->user->save();
+            $this->updateBalance($newBalance);
 
             $this->userBalanceLogger->logSubtract($money, $newBalance);
 
@@ -39,10 +39,17 @@ class UserBalanceService
 
         $newBalance = $this->user->balance->minus($convertedAmount);
 
-        $this->user->save();
+        $this->updateBalance($newBalance);
 
         $this->userBalanceLogger->logSubtract($money, $newBalance, $convertedAmount);
 
         return $newBalance;
+    }
+
+    protected function updateBalance(Money $newBalance): void
+    {
+        $this->user->balance = $newBalance;
+
+        $this->user->save();
     }
 }
