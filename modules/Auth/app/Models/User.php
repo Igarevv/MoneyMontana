@@ -50,8 +50,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function subtractFromBalance(\Brick\Money\Money $money) {}
-
     protected function casts(): array
     {
         return [
