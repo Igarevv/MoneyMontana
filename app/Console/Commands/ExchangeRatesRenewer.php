@@ -19,8 +19,15 @@ class ExchangeRatesRenewer extends Command
         $response = Http::get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/$base.json");
 
         if (! $response->ok()) {
-            $this->error("Error fetching current exchange rates.");
-            return 1;
+            $this->info("Error fetching current exchange rates from main service. Trying backup option...");
+
+            $response = Http::get("https://latest.currency-api.pages.dev/v1/currencies/$base.json");
+
+            if (! $response->ok()) {
+                $this->error("Failed to fetch currencies.");
+
+                return 1;
+            }
         }
 
         $data = $response->json();
