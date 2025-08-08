@@ -21,10 +21,13 @@ class UserLogs extends Model
         'created_at',
     ];
 
-    protected $casts = [
-        'meta' => 'array',
-        'action_type' => UserLogsActionTypeEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'meta' => 'array',
+            'action_type' => UserLogsActionTypeEnum::class,
+        ];
+    }
 
     protected static function boot(): void
     {

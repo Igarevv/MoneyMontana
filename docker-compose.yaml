@@ -18,7 +18,7 @@ services:
       - vite_assets:/app/public/build
       - ./.docker/production/php/php.ini:/usr/local/etc/php/php.ini
     networks:
-      money-montana:
+      - money-montana
     depends_on:
       - postgres
       - mongo
@@ -52,9 +52,13 @@ services:
     container_name: montana-mongo
     restart: always
     ports:
-      - "27018:27017"
+      - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     healthcheck:
       test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
       interval: 10s

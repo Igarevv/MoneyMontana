@@ -22,6 +22,7 @@ final class AddOneTimeExpenseHandler extends CommandHandler
 
     public function handle(AddOneTimeExpenseCommand $command): ExpenseAccount
     {
+        dd(DB::connection('mongodb')->command(['ping' => 1]));
         return DB::transaction(function () use ($command) {
             $now = now();
 
