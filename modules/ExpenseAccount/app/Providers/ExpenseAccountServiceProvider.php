@@ -5,8 +5,11 @@ namespace Modules\ExpenseAccount\Providers;
 use App\CommandBus\CommandBus;
 use App\CommandBus\QueryBus;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\ExpenseAccount\app\Logs\Expenses\AddUserExpenseLogs;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\AddExpenseCategoryCommand;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\ExpenseCategoryAddHandler;
 use Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense\AddOneTimeExpenseCommand;
@@ -64,6 +67,10 @@ class ExpenseAccountServiceProvider extends ServiceProvider
         $queryBus->register([
             GetExpenseCategoriesQuery::class => GetExpenseCategoriesHandler::class,
         ]);
+
+        $this->app->singleton(AddUserExpenseLogs::class, function (Application $app) {
+            return new AddUserExpenseLogs(Auth::user());
+        });
     }
 
     /**
