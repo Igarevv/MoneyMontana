@@ -6,7 +6,10 @@ use App\CommandBus\CommandBus;
 use App\CommandBus\IlluminateCommandBus;
 use App\CommandBus\IlluminateQueryBus;
 use App\CommandBus\QueryBus;
+use App\Logs\UserBalanceLogger;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        $this->app->singleton(UserBalanceLogger::class, function (Application $app) {
+            return new UserBalanceLogger(Auth::user());
+        });
     }
 
     /**

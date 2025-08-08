@@ -2,8 +2,13 @@
 
 namespace Modules\Auth\Providers;
 
+use App\Helpers\CurrencyConverter;
+use App\Logs\UserBalanceLogger;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Auth\Services\UserBalanceService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -36,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->singleton(UserBalanceService::class, function (Application $app) {
+            return new UserBalanceService(Auth::user(), CurrencyConverter::init(), $app->get(UserBalanceLogger::class));
+        });
     }
 
     /**
@@ -129,7 +138,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
     }
 
     /**
