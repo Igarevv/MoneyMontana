@@ -6,6 +6,7 @@ namespace Modules\ExpenseAccount\Http\Controllers;
 
 use App\CommandBus\CommandBus;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Modules\ExpenseAccount\Http\RequestObjects\AddExpenseAccountRO;
 use Modules\ExpenseAccount\Http\Requests\ExpenseAccountAddRequest;
 
@@ -13,14 +14,17 @@ class ExpenseAccountingCreateController extends Controller
 {
     public function __construct(
         private CommandBus $commandBus,
-    ) {}
+    ) {
+    }
 
-    public function addNewExpense(ExpenseAccountAddRequest $request)
+    public function addNewExpense(ExpenseAccountAddRequest $request): Response
     {
         $expenseData = AddExpenseAccountRO::fromRequest($request);
 
         $this->commandBus->dispatch(
             new ($expenseData->type->commandInstance())($request->user(), $expenseData),
         );
+
+        return response()->noContent();
     }
 }

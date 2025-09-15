@@ -20,6 +20,7 @@ class RWriteExpenseAccounting
             'duration_value' => $expenseAccountRO->duration_value,
             'duration_type' => $expenseAccountRO->duration_type,
             'created_at' => $expenseAccountRO->created_at,
+            'payment_date' => $expenseAccountRO->payment_date
         ]);
 
 

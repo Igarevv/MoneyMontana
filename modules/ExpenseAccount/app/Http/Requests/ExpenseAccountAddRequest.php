@@ -20,13 +20,18 @@ class ExpenseAccountAddRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'currency' => ['required', 'string', 'size:3'],
-            'created_at' => ['required', 'date'],
+            'created_at' => ['nullable', 'required_if:type,'.ExpenseType::DISPOSABLE_S, 'date'],
             'duration_type' => [
                 'nullable',
                 'required_if:type,'.ExpenseType::REPEATABLE_S.','.ExpenseType::SUBSCRIPTION_S,
                 Rule::in(DurationType::stringCases()),
             ],
             'duration_value' => ['nullable', 'required_with:duration_type', 'integer', 'min:1'],
+            'payment_date' => [
+                'nullable',
+                'required_if:type,'.ExpenseType::REPEATABLE_S.','.ExpenseType::SUBSCRIPTION_S,
+                'date'
+            ],
             'categories' => ['nullable', 'array', new ExpenseCategoriesExistsRule()],
         ];
     }

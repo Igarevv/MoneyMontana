@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->unsignedInteger('duration_value')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamp('created_at')->default(now());
+            $table->timestamp('payment_date')->nullable();
         });
     }
 

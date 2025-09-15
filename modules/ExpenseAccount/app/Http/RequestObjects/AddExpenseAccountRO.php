@@ -20,7 +20,8 @@ use Modules\ExpenseAccount\Enums\ExpenseType;
  * @property DurationType|null $duration_type
  * @property integer $duration_value
  * @property array $categories
- * @property Carbon $created_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $payment_date
  */
 class AddExpenseAccountRO extends RequestObject
 {
@@ -34,6 +35,7 @@ class AddExpenseAccountRO extends RequestObject
             'amount' => [Money::class, 'of', ['currency']],
             'currency' => [Currency::class, 'of'],
             'duration_type' => [DurationType::class, 'fromString'],
+            'payment_date' => [Carbon::class, 'parse'],
             'duration_value' => 'int',
             'categories' => 'array',
         ];

@@ -7,6 +7,7 @@ namespace Modules\ExpenseAccount\Models;
 use App\Casts\Money;
 use App\DefaultCasts\CurrencyCast;
 use Brick\Money\Currency;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,6 +25,7 @@ use Modules\ExpenseAccount\Models\RelationsTraits\ExpenseAccountRelations;
  * @property DurationType|null $duration_type
  * @property int|null $duration_value
  * @property int $user_id
+ * @property Carbon|null $payment_date
  * @method BelongsTo user()
  * @method BelongsToMany expenseCategories()
  */
@@ -44,7 +46,9 @@ class ExpenseAccount extends Model
         'currency',
         'duration_type',
         'duration_value',
+        'payment_date',
         'user_id',
+        'created_at'
     ];
 
     public function casts(): array
@@ -53,6 +57,8 @@ class ExpenseAccount extends Model
             'currency' => CurrencyCast::class,
             'amount' => Money::class,
             'duration_type' => DurationType::class,
+            'created_at' => 'datetime',
+            'payment_date' => 'datetime'
         ];
     }
 }
