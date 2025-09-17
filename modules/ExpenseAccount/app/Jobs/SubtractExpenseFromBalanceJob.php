@@ -21,7 +21,8 @@ class SubtractExpenseFromBalanceJob implements ShouldQueue
     public function __construct(
         private User $user,
         private ExpenseAccount $expenseAccount,
-    ) {}
+    ) {
+    }
 
     /**
      * Execute the job.
@@ -32,12 +33,16 @@ class SubtractExpenseFromBalanceJob implements ShouldQueue
             user: $this->user,
             currencyConverter: CurrencyConverter::init(),
             userBalanceLogger: new UserBalanceLogger($this->user),
-        )
-            ->subtractFromBalance($this->expenseAccount->amount);
+        )->subtractFromBalance($this->expenseAccount->amount);
     }
 
     public function middleware(): array
     {
         return [new WithoutOverlapping($this->user->id)];
+    }
+
+    public function failed($exception): void
+    {
+        report($exception);
     }
 }

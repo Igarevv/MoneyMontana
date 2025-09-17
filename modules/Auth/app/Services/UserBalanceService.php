@@ -17,7 +17,8 @@ class UserBalanceService
         protected User $user,
         protected CurrencyConverter $currencyConverter,
         protected UserBalanceLogger $userBalanceLogger,
-    ) {}
+    ) {
+    }
 
     public function subtractFromBalance(Money $money): Money
     {
