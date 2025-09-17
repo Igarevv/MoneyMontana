@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\ExpenseAccount\Enums;
 
+use Carbon\Carbon;
 use InvalidArgumentException;
 
 enum DurationType: int
@@ -59,6 +60,24 @@ enum DurationType: int
             self::MONTHS => __('duration_types.months'),
             self::YEARS => __('duration_types.years'),
             self::LIFETIME => __('duration_types.lifetime'),
+        };
+    }
+
+    public static function nextPaymentDateBy(
+        ?Carbon $currentPaymentDate,
+        ?self $durationType,
+        ?int $durationValue
+    ): ?Carbon {
+        if (is_null($currentPaymentDate) || is_null($durationType) || is_null($durationValue)) {
+            return null;
+        }
+
+        return match ($durationType) {
+            self::DAYS => $currentPaymentDate->copy()->addDays($durationValue),
+            self::WEEKS => $currentPaymentDate->copy()->addWeeks($durationValue),
+            self::MONTHS => $currentPaymentDate->copy()->addMonths($durationValue),
+            self::YEARS => $currentPaymentDate->copy()->addYears($durationValue),
+            self::LIFETIME => null,
         };
     }
 }

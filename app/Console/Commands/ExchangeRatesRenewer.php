@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class ExchangeRatesRenewer extends Command
 {
-    protected $signature = 'app:exchange-rates-update {base}';
+    protected $signature = 'app:exchange-rates-update {base} {--test}';
 
     protected $description = 'Update exchange rates from third-party API.';
 
@@ -16,18 +16,25 @@ class ExchangeRatesRenewer extends Command
     {
         $base = strtolower($this->argument('base') ?? 'USD');
 
-        $response = Http::get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/$base.json");
+        try {
 
-        if (! $response->ok()) {
-            $this->info("Error fetching current exchange rates from main service. Trying backup option...");
+            $response = Http::get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/$base.json");
 
-            $response = Http::get("https://latest.currency-api.pages.dev/v1/currencies/$base.json");
+            if (!$response->ok()) {
+                $this->info("Error fetching current exchange rates from main service. Trying backup option...");
 
-            if (! $response->ok()) {
-                $this->error("Failed to fetch currencies.");
+                $response = Http::get("https://latest.currency-api.pages.dev/v1/currencies/$base.json");
 
-                return 1;
+                if (!$response->ok()) {
+                    $this->error("Failed to fetch currencies.");
+
+                    return 1;
+                }
             }
+        } catch (\Exception $e) {
+            $this->error("Failed to fetch currencies: " . $e->getMessage());
+
+            return 1;
         }
 
         $data = $response->json();
@@ -60,11 +67,15 @@ class ExchangeRatesRenewer extends Command
             ->filter()
             ->values();
 
-        DB::table('exchange_rates')->upsert(
-            $rows->toArray(),
-            ['source_currency_code', 'target_currency_code'],
-            ['exchange_rate', 'updated_at'],
-        );
+        $connection = $this->option('test') ? 'pgsql_testing' : 'pgsql';
+
+        DB::connection($connection)
+            ->table('exchange_rates')
+            ->upsert(
+                $rows->toArray(),
+                ['source_currency_code', 'target_currency_code'],
+                ['exchange_rate', 'updated_at']
+            );
 
         $this->info("Exchange rates was updated.");
 

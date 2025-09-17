@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\ExpenseAccount\app\Logs\Expenses\AddUserExpenseLogs;
+use Modules\ExpenseAccount\Jobs\SubtractSubscriptionsExpenseFromUsersBalanceJob;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\AddExpenseCategoryCommand;
 use Modules\ExpenseAccount\UseCases\Commands\ExpenseCategories\ExpenseCategoryAddHandler;
 use Modules\ExpenseAccount\UseCases\Commands\Expenses\OneTimeExpense\AddOneTimeExpense\AddOneTimeExpenseCommand;
@@ -88,6 +89,8 @@ class ExpenseAccountServiceProvider extends ServiceProvider
     {
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
+
+            $schedule->job(new SubtractSubscriptionsExpenseFromUsersBalanceJob())->hourly();
         });
     }
 
