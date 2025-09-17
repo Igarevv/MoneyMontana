@@ -29,6 +29,9 @@ backend-cache-clear: ## Clean backend application cache
 backend-tests: ## Run backend tests.
 	docker exec montana-php php artisan test
 
+currency-seed: ## Run seeder for testing
+	docker exec montana-php php artisan app:update-all-exchange-rates-command --test
+
 .PHONY: help
 help:
 	@echo "Available commands:"

@@ -99,6 +99,8 @@ services:
       context: .
       dockerfile: .docker/development/php/scheduler.Dockerfile
     container_name: montana-scheduler
+    volumes:
+      - ./:/app
     networks:
       - money-montana
     depends_on:
@@ -109,6 +111,8 @@ services:
       context: .
       dockerfile: .docker/development/php/queue.Dockerfile
     container_name: montana-queue
+    volumes:
+      - ./:/app
     networks:
       - money-montana
     restart: always
