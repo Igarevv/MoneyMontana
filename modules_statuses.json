@@ -1,5 +1,6 @@
 {
     "Auth": true,
     "Main": true,
-    "ExpenseAccount": true
+    "ExpenseAccount": true,
+    "Job": true
 }

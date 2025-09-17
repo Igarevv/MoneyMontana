@@ -24,15 +24,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->singleton(
-            CommandBus::class,
-            IlluminateCommandBus::class,
-        );
+        $this->app->singleton(CommandBus::class, IlluminateCommandBus::class);
 
-        $this->app->singleton(
-            QueryBus::class,
-            IlluminateQueryBus::class,
-        );
+        $this->app->singleton(QueryBus::class, IlluminateQueryBus::class);
 
         if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
@@ -52,15 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
 
-            $allowedCurrencies = config('currency.allowed');
-
-            foreach ($allowedCurrencies as $currency) {
-                $schedule
-                    ->command("app:exchange-rates-update $currency")
-                    ->dailyAt('00:00')
-                    ->name("exchange-rates-update-$currency")
-                    ->withoutOverlapping();
-            }
+            $schedule->command('app:update-all-exchange-rates-command')->twiceDaily();
         });
     }
 }
