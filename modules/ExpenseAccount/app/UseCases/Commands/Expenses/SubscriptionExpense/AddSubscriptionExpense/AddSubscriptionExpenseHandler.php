@@ -14,8 +14,8 @@ use Modules\ExpenseAccount\Models\ExpenseAccount;
 class AddSubscriptionExpenseHandler extends CommandHandler
 {
     public function __construct(
-        private RWriteExpenseAccounting $writeExpenseAccounting,
         private UserBalanceService $userBalanceService,
+        private RWriteExpenseAccounting $writeExpenseAccounting,
         private AddUserExpenseLogs $addUserExpenseLogs
     ) {
     }

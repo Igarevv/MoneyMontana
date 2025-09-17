@@ -13,8 +13,8 @@ use Modules\ExpenseAccount\app\Repositories\Expenses\RWriteExpenseAccounting;
 class AddRepeatableExpenseHandler extends CommandHandler
 {
     public function __construct(
-        private RWriteExpenseAccounting $writeExpenseAccounting,
         private UserBalanceService $userBalanceService,
+        private RWriteExpenseAccounting $writeExpenseAccounting,
         private AddUserExpenseLogs $addUserExpenseLogs
     ) {
     }

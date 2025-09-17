@@ -117,6 +117,12 @@ return [
             'database' => env('MONGODB_DATABASE'),
         ],
 
+        'mongodb_testing' => [
+            'driver' => 'mongodb',
+            'dsn' => env('MONGODB_URI', 'mongodb://mongodb:27017'),
+            'database' => 'money_montana_test',
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),
